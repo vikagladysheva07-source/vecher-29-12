@@ -21,6 +21,7 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
+html,body{overflow-x:clip}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
 .wrap{max-width:1120px;margin:0 auto}
@@ -419,7 +420,8 @@ function renderPeopleTiles() {
 function renderCrumbs(secs, r) {
   $("#crumbs").innerHTML = `<a class="back" href="${href("")}">← Обзор</a><div class="tabs">${secs.map(([id, s]) =>
     `<a href="${href(id)}" ${id === r ? 'aria-current="page"' : ""}>${esc(label(s))}</a>`).join("")}</div>`;
-  const cur = $("#crumbs .tabs [aria-current]"); if (cur) cur.scrollIntoView({ block: "nearest", inline: "center" });
+  const tabs = $("#crumbs .tabs"), cur = tabs && tabs.querySelector("[aria-current]");
+  if (cur) tabs.scrollLeft = cur.offsetLeft - tabs.offsetLeft - (tabs.clientWidth - cur.offsetWidth) / 2;
 }
 function whoSelect(col, id, it) {
   const opts = team(); const cur = it.who || "";
