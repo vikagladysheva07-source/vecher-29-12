@@ -237,7 +237,7 @@ h1{font-style:normal;font-weight:600;font-size:clamp(30px,5vw,40px);letter-spaci
 .item .main{gap:3px}
 .item .t{font-size:15px;font-weight:500}
 .item .n{font-size:12.5px}
-.chk,.st{width:22px;height:22px;margin:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.28);background:none;padding:0;display:grid;place-items:center;align-self:center}
+.chk,.st{width:22px;height:22px;margin:1px 0 0;align-self:start!important;border-radius:50%;border:1.5px solid rgba(255,255,255,.28);background:none;padding:0;display:grid;place-items:center;align-self:center}
 .chk[aria-checked="true"],.st[data-s="2"]{background:rgba(169,187,140,.14);border-color:var(--sage)}
 .chk[aria-checked="true"]::after,.st[data-s="2"]::after{content:"";width:8px;height:4px;border:1.8px solid var(--sage);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .st[data-s="1"]{border-color:var(--amber);box-shadow:0 0 10px -2px rgba(232,166,92,.6)}
@@ -253,7 +253,7 @@ h1{font-style:normal;font-weight:600;font-size:clamp(30px,5vw,40px);letter-spaci
 .item input[type=number]{font-size:13.5px;color:var(--muted)}
 .item input[type=time]{font-size:12.5px;color:var(--muted);text-align:right}
 .item select{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);border-radius:10px;padding:5px 8px;font-size:12.5px}
-.x{border-radius:50%;width:28px;height:28px;justify-self:end}
+.x{border-radius:50%;width:28px;height:28px;justify-self:end;align-self:start;margin-top:-2px}
 .x:hover{background:rgba(224,122,106,.12)}
 .add input{border-style:solid;border-color:rgba(255,255,255,.09);background:rgba(255,255,255,.03);padding:12px 14px;border-radius:14px}
 .add input:focus{border-color:rgba(255,214,150,.4)}
@@ -261,14 +261,17 @@ h1{font-style:normal;font-weight:600;font-size:clamp(30px,5vw,40px);letter-spaci
 .bfoot{margin-top:14px}
 @media (max-width:560px){
   .board,.tile{padding:18px}
-  .item.shop{grid-template-columns:26px 1fr 28px}
-  .item.shop .chk{grid-row:1}
-  .item.shop .main{grid-column:2}
-  .item.shop .x{grid-row:1;grid-column:3}
-  .item.shop .q,.item.shop .p,.item.shop .w{grid-column:2/3}
+  .item.shop{grid-template-columns:26px auto 1fr 28px;row-gap:10px}
+  .item.shop .chk{grid-row:1;grid-column:1}
+  .item.shop .main{grid-row:1;grid-column:2/4}
+  .item.shop .x{grid-row:1;grid-column:4}
+  .item.shop .q{grid-row:2;grid-column:2}
+  .item.shop .p{grid-row:2;grid-column:3}
+  .item.shop .w{grid-row:3;grid-column:2/4}
   .item.shop .q::before,.item.shop .p::before{content:none}
   .item.shop .q,.item.shop .p{justify-content:flex-start}
-  .item.shop .q input,.item.shop .p input{text-align:left;width:70px;flex:none}
+  .item.shop .q input{text-align:left;width:44px;flex:none}
+  .item.shop .p input{text-align:left;width:80px;flex:none}
   .item.ideas{grid-template-columns:26px 1fr 28px}
   .item.ideas .st{grid-row:1;grid-column:1}
   .item.ideas .main{grid-row:1;grid-column:2}
@@ -490,7 +493,7 @@ function renderTiles(secs) {
     }
     const more = prev.length > 3 ? `<li class="more">и ещё ${prev.length - 3}</li>` : "";
     return `<a class="tile" href="${href(sid)}">
-      <div class="kindtag">${KINDNAME[s.kind] || ""}</div>
+      ${KINDNAME[s.kind] && KINDNAME[s.kind] !== label(s) && KINDNAME[s.kind] !== s.title ? `<div class="kindtag">${KINDNAME[s.kind]}</div>` : ""}
       <h3>${esc(label(s))}</h3>
       <div class="metric">${metric}</div>
       ${bar !== "" ? `<div class="bar"><i style="width:${bar}%"></i></div>` : ""}
@@ -563,7 +566,7 @@ function renderBoards(secs) {
     const rows = (s.kind === "plan" ? shown.sort((a, b) => String(a[1].time || "99").localeCompare(String(b[1].time || "99"))) : shown)
       .map(([id, it]) => itemRow(s.kind, id, it)).join("");
     return `<section class="board ${s.wide ? "wide" : ""}" id="${esc(sid)}" data-col="sections" data-id="${esc(sid)}">
-      <div class="kindtag">${KINDNAME[s.kind] || ""}</div>
+      ${KINDNAME[s.kind] && KINDNAME[s.kind] !== label(s) && KINDNAME[s.kind] !== s.title ? `<div class="kindtag">${KINDNAME[s.kind]}</div>` : ""}
       <div class="bhead"><input type="text" data-f="title" value="${esc(val("sections", sid, "title", s.title))}" aria-label="Название раздела"><span class="count">${all.length}</span></div>
       ${s.hint ? `<p class="bhint">${esc(s.hint).split(/\.\s+/).join("<br>")}</p>` : ""}
 
