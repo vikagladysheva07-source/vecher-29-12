@@ -1,0 +1,470 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Катин вечер 29.12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: stage-lit hero with a spotlight cone, then a stack of editable "boards" on a dark warm floor */
+:root{
+  --bg:#0c0907; --floor:#15100c; --surface:rgba(255,232,205,.035); --surface-2:rgba(255,232,205,.07);
+  --line:rgba(255,214,170,.13); --line-2:rgba(255,214,170,.24);
+  --fg:#f4e8db; --muted:#b39e8a; --dim:#7d6b5b;
+  --amber:#e8a65c; --glow:#ffd394; --rose:#d98f72; --sage:#a9bb8c; --danger:#e07a6a;
+  --display:"Bodoni Moda",Didot,"Times New Roman",serif;
+  --body:Manrope,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:1120px;margin:0 auto}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--glow);outline-offset:2px;border-radius:6px}
+
+/* hero */
+.hero{position:relative;text-align:center;padding:72px 0 36px;isolation:isolate}
+.hero::before{content:"";position:absolute;z-index:-1;left:50%;top:-40px;width:min(900px,140vw);height:620px;transform:translateX(-50%);
+  background:radial-gradient(closest-side at 50% 12%,rgba(255,214,150,.55),rgba(232,166,92,.18) 38%,rgba(12,9,7,0) 72%);pointer-events:none}
+.hero::after{content:"";position:absolute;z-index:-1;left:50%;top:10px;width:120px;height:120px;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(255,244,220,.95),rgba(255,214,150,.35) 40%,rgba(255,214,150,0) 70%);filter:blur(2px);animation:flick 6s ease-in-out infinite}
+@keyframes flick{0%,100%{opacity:.9}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.hero::after{animation:none}}
+.eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--glow)}
+h1{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(40px,7vw,56px);line-height:1.05;margin:14px 0 10px;text-wrap:balance}
+.hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;margin-top:18px}
+.field-pill{display:flex;align-items:center;gap:6px;background:rgba(12,9,7,.55);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;max-width:100%}
+.field-pill span{color:var(--muted);white-space:nowrap}
+.field-pill input{background:none;border:0;outline:none;min-width:0;width:auto;field-sizing:content;max-width:60vw;color:var(--fg)}
+.secret{margin-top:16px;font-size:13px;color:var(--muted)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:8px 0 26px}
+.stat{background:var(--floor);padding:16px 18px}
+.stat b{display:block;font-family:var(--display);font-size:30px;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat small{color:var(--muted);font-size:12.5px}
+.bar{height:3px;background:var(--surface-2);border-radius:3px;margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--glow))}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* toolbar */
+.toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 0;background:linear-gradient(var(--bg) 70%,rgba(12,9,7,0))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.toolbar .lbl{color:var(--dim);font-size:12.5px;margin-right:2px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13.5px;color:var(--muted)}
+.chip:hover{border-color:var(--line-2);color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.toolbar .sp{flex:1}
+.jump{font-size:13px;color:var(--muted);text-decoration:none;padding:4px 6px}
+.jump:hover{color:var(--glow)}
+
+.notice{border:1px solid var(--line-2);background:rgba(232,166,92,.08);border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--glow);margin-bottom:14px}
+
+/* boards */
+.boards{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.board{background:var(--floor);border:1px solid var(--line);border-radius:18px;padding:18px 18px 14px;min-width:0;scroll-margin-top:70px}
+.board.wide{grid-column:1/-1}
+@media (max-width:860px){.boards{grid-template-columns:1fr}}
+.bhead{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.bhead input{flex:1;min-width:0;background:none;border:0;outline:none;font-family:var(--display);font-size:24px;font-weight:500;color:var(--fg);padding:0}
+.bhead .count{color:var(--dim);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bhint{color:var(--muted);font-size:13px;margin:0 0 12px}
+.kindtag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+
+.items{display:flex;flex-direction:column}
+.item{display:grid;align-items:start;gap:8px 10px;padding:9px 0;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item.shop{grid-template-columns:22px 1fr 54px 86px 92px 24px}
+.item.ideas{grid-template-columns:78px 1fr 92px 24px}
+.item.plan{grid-template-columns:62px 1fr 92px 24px}
+.item .main{min-width:0;display:flex;flex-direction:column;gap:2px}
+.item textarea,.item input[type=text],.item input[type=number],.item input[type=time]{width:100%;background:none;border:1px solid transparent;border-radius:8px;outline:none;padding:3px 6px;margin:-3px -6px;resize:none;overflow:hidden;line-height:1.45}
+.item textarea:hover,.item input:hover{border-color:var(--line)}
+.item textarea:focus,.item input:focus{border-color:var(--line-2);background:var(--surface)}
+.item .t{font-size:15px}
+.item .n{font-size:13px;color:var(--muted)}
+.item .n::placeholder{color:var(--dim)}
+.item input[type=number]{text-align:right;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+.item input[type=number]::-webkit-inner-spin-button{display:none}
+.item input[type=time]{font-variant-numeric:tabular-nums;color:var(--glow);color-scheme:dark}
+.item select{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:3px 6px;font-size:13px;color:var(--muted)}
+.item select.set{color:var(--fg)}
+.chk{width:20px;height:20px;margin-top:3px;border-radius:6px;border:1.5px solid var(--line-2);background:none;display:grid;place-items:center;padding:0}
+.chk[aria-checked="true"]{background:var(--sage);border-color:var(--sage)}
+.chk[aria-checked="true"]::after{content:"";width:9px;height:5px;border:2px solid var(--bg);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.item.done .t{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--dim)}
+.st{border-radius:999px;font-size:12px;padding:3px 0;border:1px solid var(--line-2);background:none;color:var(--muted);margin-top:2px;width:100%}
+.st[data-s="1"]{border-color:var(--amber);color:var(--amber);background:rgba(232,166,92,.08)}
+.st[data-s="2"]{border-color:var(--sage);color:var(--bg);background:var(--sage)}
+.st[data-s="3"]{border-color:transparent;color:var(--dim);text-decoration:line-through}
+.item.s3 .t{color:var(--dim)}
+.x{width:24px;height:24px;border:0;background:none;color:var(--dim);border-radius:6px;font-size:16px;line-height:1;margin-top:2px}
+.x:hover{color:var(--danger);background:rgba(224,122,106,.1)}
+.x.arm{color:var(--bg);background:var(--danger)}
+.colhead{display:grid;gap:10px;color:var(--dim);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding-bottom:4px}
+.colhead.shop{grid-template-columns:22px 1fr 54px 86px 92px 24px}
+.colhead .r{text-align:right}
+@media (max-width:560px){
+  .item.shop{grid-template-columns:22px 1fr 24px}
+  .item.shop .q,.item.shop .p,.item.shop .w{grid-column:2/3}
+  .item.shop .q,.item.shop .p{display:flex;align-items:center;gap:8px}
+  .item.shop .q::before{content:"Кол-во";font-size:12px;color:var(--dim);width:56px;flex:none}
+  .item.shop .p::before{content:"Цена";font-size:12px;color:var(--dim);width:56px;flex:none}
+  .item.shop .q input,.item.shop .p input{text-align:left}
+  .item.shop .x{grid-row:1;grid-column:3}
+  .colhead.shop{display:none}
+  .item.ideas,.item.plan{grid-template-columns:1fr 92px 24px}
+  .item.ideas .main,.item.plan .main{grid-column:1/-1;grid-row:1}
+  .item.ideas .st,.item.plan .tm{grid-row:2}
+}
+.empty{color:var(--dim);font-size:13.5px;padding:10px 0}
+.add{display:flex;gap:8px;margin-top:10px}
+.add input{flex:1;min-width:0;background:var(--surface);border:1px dashed var(--line-2);border-radius:10px;padding:8px 12px;outline:none}
+.add input:focus{border-style:solid;border-color:var(--amber)}
+.add button{border:1px solid var(--line-2);background:none;border-radius:10px;padding:0 14px;color:var(--glow)}
+.add button:hover{background:var(--surface-2)}
+.bfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.bfoot b{color:var(--fg);font-variant-numeric:tabular-nums}
+.linkbtn{border:0;background:none;color:var(--dim);font-size:12.5px;padding:2px 0}
+.linkbtn:hover{color:var(--danger)}
+.linkbtn.arm{color:var(--danger)}
+
+.newsec{margin-top:22px;border:1px dashed var(--line-2);border-radius:18px;padding:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.newsec input{flex:1 1 220px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px;outline:none}
+.newsec select{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+.newsec button{background:var(--fg);color:var(--bg);border:0;border-radius:10px;padding:9px 16px;font-weight:600}
+.newsec .lbl{flex-basis:100%;font-family:var(--display);font-size:20px}
+.foot{color:var(--dim);font-size:12.5px;text-align:center;margin-top:30px}
+.loading{color:var(--muted);text-align:center;padding:40px 0}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Сюрприз · вход только для своих</div>
+    <h1 id="title">Катин вечер</h1>
+    <div class="hero-meta" id="meta"></div>
+    <p class="secret">Катя не должна видеть эту страницу. Не открывай её при ней и не пересылай ссылку никому, кроме команды</p>
+  </header>
+
+  <section class="stats" id="stats" aria-label="Сводка"></section>
+
+  <nav class="toolbar" aria-label="Фильтр">
+    <span class="lbl">Чьё:</span>
+    <span id="people" style="display:contents"></span>
+    <span class="sp"></span>
+    <span id="jumps" style="display:contents"></span>
+  </nav>
+
+  <div id="notice"></div>
+  <main class="boards" id="boards"><div class="loading">Загружаем план вечера…</div></main>
+
+  <form class="newsec" id="newsec">
+    <div class="lbl">Новый раздел</div>
+    <input id="ns-title" type="text" placeholder="Например: Подарок от всех, Меню, Музыка" autocomplete="off">
+    <select id="ns-kind" aria-label="Тип раздела">
+      <option value="ideas">Идеи и задачи</option>
+      <option value="shop">Список покупок</option>
+      <option value="plan">План по времени</option>
+    </select>
+    <button type="submit">Добавить раздел</button>
+  </form>
+  <p class="foot">Все правки сохраняются сами и через несколько секунд видны остальным<br><span id="sync"></span></p>
+</div>
+
+<script>
+(() => {
+const S = { sections: new Map(), items: new Map(), meta: {}, got: {s:false,i:false,m:false}, who: "all" };
+const drafts = new Map();            // "col|id|field" -> value while typing
+const timers = new Map();
+let api = null, mode = "loading";
+const STATUS = ["идея","берём","готово","мимо"];
+const KINDNAME = { shop:"Покупки", ideas:"Идеи и задачи", plan:"План по времени" };
+const DEFAULT_META = { title:"Катин вечер", date:"29 декабря", place:"Загородный дом", guests:"", currency:"₽", team:"Вика, Люба, Данил" };
+
+const $ = s => document.querySelector(s);
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num = v => { const n = parseFloat(String(v ?? "").replace(",", ".")); return isFinite(n) ? n : 0; };
+const meta = k => (S.meta[k] ?? DEFAULT_META[k] ?? "");
+const team = () => String(meta("team")).split(/[,;]+/).map(s => s.trim()).filter(Boolean);
+const fmt = n => n.toLocaleString("ru-RU", { maximumFractionDigits: 0 });
+const val = (col, id, f, stored) => { const k = col+"|"+id+"|"+f; return drafts.has(k) ? drafts.get(k) : (stored ?? ""); };
+
+/* ---------- storage: shared Supabase document, key lives only in the link ---------- */
+const CFG = { url: "https://amcbxjwgiqphqikzcxfj.supabase.co", key: "sb_publishable_pDMx4w2cbHbuf7Y6cHiE2g_mFT8hlPB" };
+const KEYM = (location.hash.match(/k=([a-z0-9]{20,64})/) || [])[1] || "";
+const LKEY = "katya-board-" + KEYM;
+const now = () => Date.now();
+let D = { sections:{}, items:{}, meta:{}, del:{} };
+try { const c = JSON.parse(localStorage.getItem(LKEY) || "null"); if (c && c.items) D = c; } catch (e) {}
+const saveLocal = () => { try { localStorage.setItem(LKEY, JSON.stringify(D)); } catch (e) {} };
+function applyToS() {
+  S.sections = new Map(Object.entries(D.sections)); S.items = new Map(Object.entries(D.items));
+  S.meta = D.meta || {}; S.got = { s:true, i:true, m:true }; render();
+}
+function merge(a, b) {
+  if (!b || typeof b !== "object") return a;
+  const out = { sections:{}, items:{}, meta:{}, del:{ ...(a.del || {}) } };
+  for (const [k, t] of Object.entries(b.del || {})) out.del[k] = Math.max(out.del[k] || 0, t);
+  for (const col of ["sections", "items"]) {
+    const A = a[col] || {}, B = b[col] || {};
+    for (const id of new Set([...Object.keys(A), ...Object.keys(B)])) {
+      const x = A[id], y = B[id];
+      const w = !x ? y : !y ? x : ((y.u || 0) > (x.u || 0) ? y : x);
+      if (out.del[id] && out.del[id] >= (w.u || 0)) continue;
+      out[col][id] = w;
+    }
+  }
+  out.meta = ((b.meta || {}).u || 0) > ((a.meta || {}).u || 0) ? b.meta : (a.meta || {});
+  return out;
+}
+async function rpc(fn, body) {
+  const r = await fetch(CFG.url + "/rest/v1/rpc/" + fn, { method:"POST",
+    headers:{ "Content-Type":"application/json", apikey:CFG.key, Authorization:"Bearer " + CFG.key }, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  const t = await r.text(); return t ? JSON.parse(t) : null;
+}
+let pushTimer = null, busy = false, dirty = false, lastOk = 0;
+function status(ok) {
+  const el = $("#sync"); if (!el) return;
+  if (ok) { lastOk = now(); el.textContent = "Сохранено для всех · " + new Date().toLocaleTimeString("ru-RU", { hour:"2-digit", minute:"2-digit" }); note(""); }
+  else note("Нет связи. Правки сохранены на этом устройстве и отправятся, когда появится интернет");
+}
+function schedulePush() { dirty = true; clearTimeout(pushTimer); pushTimer = setTimeout(() => { pushTimer = null; sync(); }, 700); }
+async function sync() {
+  if (busy) { dirty = true; return; }
+  busy = true; const hadLocal = dirty; dirty = false;
+  try {
+    const rem = await rpc("el_get", { k: KEYM });
+    const before = JSON.stringify(D);
+    D = merge(D, rem);
+    if (hadLocal || !rem || JSON.stringify(rem) !== JSON.stringify(D)) await rpc("el_put", { p_k: KEYM, p_d: D });
+    saveLocal(); if (JSON.stringify(D) !== before) applyToS();
+    status(true);
+  } catch (e) { dirty = dirty || hadLocal; status(false); }
+  busy = false;
+  if (dirty) { clearTimeout(pushTimer); pushTimer = setTimeout(() => { pushTimer = null; sync(); }, 1500); }
+}
+function touched() { saveLocal(); applyToS(); schedulePush(); }
+const syncApi = {
+  set(c, id, d) { if (c === "meta") D.meta = { ...d, u: now() }; else D[c][id] = { ...d, u: now() }; touched(); },
+  update(c, id, p) {
+    if (c === "meta") D.meta = { ...DEFAULT_META, ...D.meta, ...p, u: now() };
+    else if (D[c][id]) D[c][id] = { ...D[c][id], ...p, u: now() };
+    touched();
+  },
+  del(c, id) { delete D[c][id]; D.del[id] = now(); touched(); },
+};
+function note(t, kind) {
+  const n = $("#notice"); n.dataset.kind = kind || "";
+  n.innerHTML = t ? '<div class="notice">' + esc(t) + "</div>" : "";
+}
+const newId = p => p + "-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+/* ---------- render ---------- */
+function daysLeft() {
+  const now = new Date(); const t = new Date(2026, 11, 29);
+  return Math.ceil((t - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5);
+}
+function renderHead() {
+  document.title = meta("title") + " 29.12";
+  const t = $("#title"); if (document.activeElement?.id !== "m-title") t.textContent = meta("title");
+  const fields = [["date","Когда"],["place","Где"],["guests","Гостей"],["team","Команда"],["currency","Валюта"]];
+  const box = $("#meta");
+  if (!box.children.length) {
+    box.innerHTML = fields.map(([k, l]) =>
+      `<label class="field-pill"><span>${l}</span><input type="text" id="m-${k}" data-col="meta" data-id="settings" data-f="${k}" placeholder="—" autocomplete="off"></label>`).join("");
+  }
+  fields.forEach(([k]) => { const el = $("#m-" + k); if (el && document.activeElement !== el) el.value = val("meta","settings",k, meta(k)); });
+}
+function renderStats() {
+  const items = [...S.items.values()];
+  const kindOf = it => S.sections.get(it.sec)?.kind;
+  const shop = items.filter(i => kindOf(i) === "shop");
+  const bought = shop.filter(i => i.done).length;
+  const total = shop.reduce((a, i) => a + num(i.price) * (num(i.qty) || 1), 0);
+  const left = shop.filter(i => !i.done).reduce((a, i) => a + num(i.price) * (num(i.qty) || 1), 0);
+  const ideas = items.filter(i => kindOf(i) === "ideas" && (i.st|0) !== 3);
+  const taken = ideas.filter(i => (i.st|0) >= 1).length;
+  const ready = ideas.filter(i => (i.st|0) === 2).length;
+  const d = daysLeft(); const cur = meta("currency");
+  const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+  $("#stats").innerHTML = `
+    <div class="stat"><b>${d > 0 ? d : d === 0 ? "Сегодня" : "Прошло"}</b><small>${d > 0 ? "дней до 29 декабря" : "праздник"}</small></div>
+    <div class="stat"><b>${bought} / ${shop.length}</b><small>куплено</small><div class="bar"><i style="width:${pct(bought, shop.length)}%"></i></div></div>
+    <div class="stat"><b>${fmt(total)} ${esc(cur)}</b><small>бюджет по ценам, осталось купить на ${fmt(left)} ${esc(cur)}</small></div>
+    <div class="stat"><b>${taken} / ${ideas.length}</b><small>идей берём, готово ${ready}</small><div class="bar"><i style="width:${pct(ready, ideas.length)}%"></i></div></div>`;
+}
+function renderToolbar(secs) {
+  const ppl = ["all", ...team(), "none"];
+  $("#people").innerHTML = ppl.map(p => `<button class="chip" data-act="who" data-who="${esc(p)}" aria-pressed="${S.who === p}">${p === "all" ? "Все" : p === "none" ? "Ничьё" : esc(p)}</button>`).join("");
+  $("#jumps").innerHTML = secs.map(([id, s]) => `<a class="jump" href="#${esc(id)}">${esc(s.title || KINDNAME[s.kind])}</a>`).join("");
+}
+function whoSelect(col, id, it) {
+  const opts = team(); const cur = it.who || "";
+  const list = cur && !opts.includes(cur) ? [...opts, cur] : opts;
+  return `<select class="w ${cur ? "set" : ""}" data-f="who" aria-label="Кто отвечает"><option value="">кто?</option>${list.map(p => `<option ${p === cur ? "selected" : ""}>${esc(p)}</option>`).join("")}<option value="Все" ${cur === "Все" ? "selected" : ""}>Все</option></select>`;
+}
+function itemRow(kind, id, it) {
+  const v = f => esc(val("items", id, f, it[f]));
+  const x = `<button class="x" data-act="del" aria-label="Удалить">×</button>`;
+  const main = (ph, nph) => `<div class="main"><textarea rows="1" class="t" data-f="text" placeholder="${ph}">${v("text")}</textarea><textarea rows="1" class="n" data-f="note" placeholder="${nph}">${v("note")}</textarea></div>`;
+  if (kind === "shop") return `<div class="item shop ${it.done ? "done" : ""}" data-col="items" data-id="${id}">
+      <button class="chk" data-act="done" role="checkbox" aria-checked="${!!it.done}" aria-label="Куплено"></button>
+      ${main("Что купить", "где, какой, ссылка")}
+      <label class="q"><input type="number" inputmode="decimal" data-f="qty" value="${v("qty")}" placeholder="1" aria-label="Количество"></label>
+      <label class="p"><input type="number" inputmode="decimal" data-f="price" value="${v("price")}" placeholder="—" aria-label="Цена за штуку"></label>
+      ${whoSelect("items", id, it)}${x}</div>`;
+  if (kind === "plan") return `<div class="item plan" data-col="items" data-id="${id}">
+      <input type="time" class="tm" data-f="time" value="${v("time")}" aria-label="Время">
+      ${main("Что происходит", "детали")}${whoSelect("items", id, it)}${x}</div>`;
+  const s = it.st | 0;
+  return `<div class="item ideas s${s}" data-col="items" data-id="${id}">
+      <button class="st" data-act="st" data-s="${s}" title="Нажми, чтобы сменить статус">${STATUS[s]}</button>
+      ${main("Идея", "детали, что нужно")}${whoSelect("items", id, it)}${x}</div>`;
+}
+function renderBoards(secs) {
+  const box = $("#boards");
+  if (mode === "loading" || (!S.got.s && !S.sections.size)) { box.innerHTML = '<div class="loading">Загружаем план вечера…</div>'; return; }
+  if (!secs.length) { box.innerHTML = '<div class="loading">Разделов пока нет. Добавь первый внизу: например «Покупки» или «Игры»</div>'; return; }
+  const cur = meta("currency");
+  box.innerHTML = secs.map(([sid, s]) => {
+    const all = [...S.items.entries()].filter(([, it]) => it.sec === sid).sort((a, b) => (a[1].ord || 0) - (b[1].ord || 0));
+    const shown = all.filter(([, it]) => S.who === "all" || (S.who === "none" ? !it.who : it.who === S.who || it.who === "Все"));
+    let foot = "";
+    if (s.kind === "shop") {
+      const sum = all.reduce((a, [, i]) => a + num(i.price) * (num(i.qty) || 1), 0);
+      foot = `<span>Итого по разделу: <b>${fmt(sum)} ${esc(cur)}</b> · куплено ${all.filter(([, i]) => i.done).length} из ${all.length}</span>`;
+    } else if (s.kind === "ideas") {
+      foot = `<span>Берём ${all.filter(([, i]) => (i.st|0) === 1 || (i.st|0) === 2).length} · готово ${all.filter(([, i]) => (i.st|0) === 2).length}</span>`;
+    } else foot = "<span></span>";
+    const rows = (s.kind === "plan" ? shown.sort((a, b) => String(a[1].time || "99").localeCompare(String(b[1].time || "99"))) : shown)
+      .map(([id, it]) => itemRow(s.kind, id, it)).join("");
+    return `<section class="board ${s.wide ? "wide" : ""}" id="${esc(sid)}" data-col="sections" data-id="${esc(sid)}">
+      <div class="kindtag">${KINDNAME[s.kind] || ""}</div>
+      <div class="bhead"><input type="text" data-f="title" value="${esc(val("sections", sid, "title", s.title))}" aria-label="Название раздела"><span class="count">${all.length}</span></div>
+      ${s.hint ? `<p class="bhint">${esc(s.hint)}</p>` : ""}
+      ${s.kind === "shop" && rows ? `<div class="colhead shop"><span></span><span>Что</span><span class="r">Кол-во</span><span class="r">Цена</span><span>Кто</span><span></span></div>` : ""}
+      <div class="items">${rows || `<div class="empty">${all.length ? "Здесь нет пунктов этого человека" : "Пока пусто, добавь первый пункт"}</div>`}</div>
+      <div class="add"><input type="text" data-add="${esc(sid)}" placeholder="${s.kind === "shop" ? "Добавить покупку" : s.kind === "plan" ? "Добавить шаг вечера" : "Добавить идею"}" aria-label="Новый пункт"><button data-act="add">+</button></div>
+      <div class="bfoot">${foot}<button class="linkbtn" data-act="delsec">Удалить раздел</button></div>
+    </section>`;
+  }).join("");
+}
+function render() {
+  if (!api) return;
+  if (mode === "loading" && (S.got.s || S.sections.size)) mode = "ready";
+  // keep focus/caret across re-render
+  const a = document.activeElement; let keep = null;
+  if (a && a.dataset && a.dataset.f && a.closest("#boards")) {
+    const host = a.closest("[data-id]");
+    keep = { id: host.dataset.id, f: a.dataset.f, s: a.selectionStart, e: a.selectionEnd };
+  } else if (a && a.dataset && a.dataset.add) keep = { add: a.dataset.add, v: a.value };
+  const secs = [...S.sections.entries()].sort((x, y) => (x[1].ord || 0) - (y[1].ord || 0));
+  renderHead(); renderStats(); renderToolbar(secs); renderBoards(secs);
+  document.querySelectorAll("#boards textarea").forEach(autosize);
+  if (keep) {
+    const el = keep.add ? document.querySelector(`[data-add="${CSS.escape(keep.add)}"]`)
+      : document.querySelector(`[data-id="${CSS.escape(keep.id)}"] [data-f="${keep.f}"]`);
+    if (el) { el.focus(); if (keep.add) el.value = keep.v; else try { el.setSelectionRange(keep.s, keep.e); } catch (e) {} }
+  }
+}
+function autosize(t) { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }
+
+/* ---------- editing ---------- */
+function target(el) { const h = el.closest("[data-col][data-id]"); return h ? { col: h.dataset.col, id: h.dataset.id } : null; }
+function flush(col, id, f) {
+  const k = col + "|" + id + "|" + f; clearTimeout(timers.get(k)); timers.delete(k);
+  if (!drafts.has(k)) return;
+  let v = drafts.get(k);
+  if (col === "items" && (f === "qty" || f === "price")) v = v === "" ? "" : num(v);
+  if (col === "sections" && f === "title" && !String(v).trim()) return;
+  api.update(col, id, { [f]: v });
+}
+document.addEventListener("input", e => {
+  const el = e.target; if (!el.dataset.f || el.tagName === "SELECT") { return; }
+  const t = target(el); if (!t) return;
+  if (el.tagName === "TEXTAREA") autosize(el);
+  const k = t.col + "|" + t.id + "|" + el.dataset.f;
+  drafts.set(k, el.value);
+  clearTimeout(timers.get(k));
+  timers.set(k, setTimeout(() => flush(t.col, t.id, el.dataset.f), 600));
+});
+document.addEventListener("focusout", e => {
+  const el = e.target; if (!el.dataset || !el.dataset.f || el.tagName === "SELECT") return;
+  const t = target(el); if (!t) return;
+  flush(t.col, t.id, el.dataset.f);
+  const k = t.col + "|" + t.id + "|" + el.dataset.f;
+  setTimeout(() => drafts.delete(k), 1500);
+});
+document.addEventListener("change", e => {
+  const el = e.target; if (el.tagName !== "SELECT" || !el.dataset.f) return;
+  const t = target(el); if (t) api.update(t.col, t.id, { [el.dataset.f]: el.value });
+});
+function addItem(sid, input) {
+  const text = input.value.trim(); if (!text) { input.focus(); return; }
+  const kind = S.sections.get(sid)?.kind;
+  const d = { sec: sid, text, note: "", who: S.who !== "all" && S.who !== "none" ? S.who : "", ord: Date.now() };
+  if (kind === "shop") Object.assign(d, { qty: "", price: "", done: false });
+  else if (kind === "plan") d.time = "";
+  else d.st = 0;
+  input.value = "";
+  api.set("items", newId("i"), d);
+}
+const armed = new WeakSet();
+function confirmClick(btn, label, fn) {
+  if (armed.has(btn)) { fn(); return; }
+  armed.add(btn); btn.classList.add("arm"); const old = btn.textContent; btn.textContent = label;
+  setTimeout(() => { armed.delete(btn); btn.classList.remove("arm"); btn.textContent = old; }, 2600);
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const act = b.dataset.act, t = target(b);
+  if (act === "who") { S.who = b.dataset.who; render(); return; }
+  if (act === "done") api.update("items", t.id, { done: !(S.items.get(t.id) || {}).done });
+  if (act === "st") api.update("items", t.id, { st: (((S.items.get(t.id) || {}).st | 0) + 1) % 4 });
+  if (act === "del") confirmClick(b, "?", () => api.del("items", t.id));
+  if (act === "add") { const sec = b.closest("section"); addItem(sec.dataset.id, sec.querySelector("[data-add]")); }
+  if (act === "delsec") {
+    const sid = b.closest("section").dataset.id;
+    confirmClick(b, "Точно удалить раздел со всеми пунктами?", () => {
+      [...S.items.entries()].filter(([, it]) => it.sec === sid).forEach(([id]) => api.del("items", id));
+      api.del("sections", sid);
+    });
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && e.target.dataset && e.target.dataset.add) { e.preventDefault(); addItem(e.target.dataset.add, e.target); }
+  if (e.key === "Enter" && e.target.tagName === "TEXTAREA" && !e.shiftKey) { e.preventDefault(); e.target.blur(); }
+});
+$("#newsec").addEventListener("submit", e => {
+  e.preventDefault();
+  const title = $("#ns-title").value.trim(); if (!title) { $("#ns-title").focus(); return; }
+  const kind = $("#ns-kind").value;
+  api.set("sections", newId("s"), { title, kind, ord: Date.now(), hint: "", wide: kind === "shop" });
+  $("#ns-title").value = "";
+});
+
+/* ---------- start ---------- */
+renderHead();
+if (!KEYM) {
+  $("#boards").innerHTML = '<div class="loading">Открой полную ссылку, которую прислала Вика: в ней есть ключ доступа</div>';
+  $("#newsec").hidden = true;
+} else {
+  api = syncApi; mode = "ready";
+  if (Object.keys(D.sections).length) applyToS();
+  sync();
+  setInterval(() => { if (!document.hidden && !pushTimer) sync(); }, 8000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) sync(); });
+}
+setInterval(renderStats, 3600 * 1000);
+})();
+</script>
+</body>
+</html>
