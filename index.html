@@ -7,7 +7,7 @@
 <meta name="referrer" content="no-referrer">
 <title>Катин вечер 29.12</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap">
 <style>
 /* Layout: stage-lit hero with a spotlight cone, then a stack of editable "boards" on a dark warm floor */
 :root{
@@ -188,16 +188,110 @@ body::before{background:var(--bg)}
 .pagehead{margin:4px 0 16px}
 .pagehead h2{font-family:var(--display);font-weight:500;font-size:30px;margin:0}
 .pagehead p{color:var(--muted);margin:4px 0 0;font-size:14px}
+
+/* ===== СТИЛЬ VOLYO: Manrope, нейтральное стекло, карточки дел с кружком слева, без капса, не впритык ===== */
+:root{--display:Manrope,"Helvetica Neue",Arial,sans-serif;--fg:#F2EDE2;--muted:rgba(242,232,218,.58);--dim:rgba(242,232,218,.36);
+  --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--surface:rgba(255,255,255,.045);--surface-2:rgba(255,255,255,.08);
+  --glass:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.012)),rgba(0,0,0,.28);--hl:inset 0 1px 0 rgba(255,255,255,.06)}
+body{text-wrap:pretty}
+h1,.h2,.tile h3,.pagehead h2,.bhead input,.stat b,.metric b,.ptile b{font-family:var(--body)}
+h1{font-style:normal;font-weight:600;font-size:clamp(30px,5vw,40px);letter-spacing:-.01em}
+.hero.compact h1{font-size:20px;font-weight:600}
+.eyebrow{text-transform:none;letter-spacing:.02em;font-size:13.5px;color:var(--glow);opacity:.85}
+.kindtag{text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--muted)}
+.h2{font-size:18px;font-weight:600;margin:36px 0 14px}
+.secret{line-height:1.55}
+.stats{background:none;border:0;gap:14px;overflow:visible}
+.stat,.tile,.board,.ptile,.newsec{background:var(--glass);border:1px solid rgba(255,255,255,.07);box-shadow:var(--hl),0 14px 34px -18px rgba(0,0,0,.6);border-radius:20px}
+.stat{padding:18px 20px}
+.stat b,.metric b{font-weight:600;font-size:28px;letter-spacing:-.01em}
+.stat small{font-size:12.5px}
+.tile{padding:22px;gap:14px}
+.tile:hover,.ptile:hover{border-color:rgba(255,214,150,.28);box-shadow:var(--hl),0 0 0 1px rgba(255,214,150,.06),0 18px 40px -20px rgba(255,190,110,.35)}
+.tile h3{font-size:17px;font-weight:600;line-height:1.3}
+.metric span{font-size:12.5px}
+.prev{gap:8px}
+.open{font-size:13px;padding-top:14px}
+.ptile{padding:18px 20px}
+.ptile b{font-size:16px;font-weight:600}
+.board{padding:22px;border-radius:22px}
+.bhead input{font-size:20px;font-weight:600;padding:2px 0}
+.bhint{line-height:1.55;margin:6px 0 16px}
+.newsec{border-style:solid;padding:22px;gap:12px}
+.newsec .lbl{font-family:var(--body);font-size:16px;font-weight:600}
+.newsec button{background:rgba(255,255,255,.08);color:var(--fg);border:1px solid rgba(255,214,150,.35);box-shadow:var(--hl),0 0 18px -6px rgba(255,190,110,.35)}
+.field-pill{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.09);padding:8px 16px}
+.chip,.tabs a{border:1px solid transparent}
+.chip{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);padding:6px 14px}
+.chip[aria-pressed="true"],.tabs a[aria-current="page"]{background:rgba(255,255,255,.09);color:var(--fg);border-color:rgba(255,214,150,.38);box-shadow:var(--hl)}
+.back{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
+.crumbs{background:rgba(12,9,7,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.loading,.empty{text-align:left}
+/* карточки дел */
+.items{gap:8px}
+.item{border-top:0;padding:12px 12px 12px 14px;border-radius:16px;min-height:58px;align-items:center;
+  background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.01)),rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.07);box-shadow:var(--hl)}
+.item.shop{grid-template-columns:26px 1fr 64px 104px 104px 28px}
+.item.ideas{grid-template-columns:26px 1fr 64px 104px 28px}
+.item.plan{grid-template-columns:1fr 78px 104px 28px}
+.item .main{gap:3px}
+.item .t{font-size:15px;font-weight:500}
+.item .n{font-size:12.5px}
+.chk,.st{width:22px;height:22px;margin:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.28);background:none;padding:0;display:grid;place-items:center;align-self:center}
+.chk[aria-checked="true"],.st[data-s="2"]{background:rgba(169,187,140,.14);border-color:var(--sage)}
+.chk[aria-checked="true"]::after,.st[data-s="2"]::after{content:"";width:8px;height:4px;border:1.8px solid var(--sage);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.st[data-s="1"]{border-color:var(--amber);box-shadow:0 0 10px -2px rgba(232,166,92,.6)}
+.st[data-s="1"]::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.st[data-s="3"]{border-style:dashed;border-color:rgba(255,255,255,.18)}
+.st:hover,.chk:hover{border-color:rgba(255,255,255,.5)}
+.stw{font-size:12.5px;color:var(--dim);text-align:right;white-space:nowrap}
+.stw[data-s="1"]{color:var(--amber)}.stw[data-s="2"]{color:var(--sage)}
+.item.s3 .t,.item.done .t{color:var(--dim)}
+.item.done .t{text-decoration:none}
+.q,.p{display:flex;align-items:center;gap:4px;justify-content:flex-end}
+.q span,.p span{font-size:12.5px;color:var(--dim);flex:none}
+.item input[type=number]{font-size:13.5px;color:var(--muted)}
+.item input[type=time]{font-size:12.5px;color:var(--muted);text-align:right}
+.item select{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);border-radius:10px;padding:5px 8px;font-size:12.5px}
+.x{border-radius:50%;width:28px;height:28px;justify-self:end}
+.x:hover{background:rgba(224,122,106,.12)}
+.add input{border-style:solid;border-color:rgba(255,255,255,.09);background:rgba(255,255,255,.03);padding:12px 14px;border-radius:14px}
+.add input:focus{border-color:rgba(255,214,150,.4)}
+.add button{border-radius:14px;width:46px;padding:0;border-color:rgba(255,255,255,.12);color:var(--fg);font-size:18px}
+.bfoot{margin-top:14px}
+@media (max-width:560px){
+  .board,.tile{padding:18px}
+  .item.shop{grid-template-columns:26px 1fr 28px}
+  .item.shop .chk{grid-row:1}
+  .item.shop .main{grid-column:2}
+  .item.shop .x{grid-row:1;grid-column:3}
+  .item.shop .q,.item.shop .p,.item.shop .w{grid-column:2/3}
+  .item.shop .q::before,.item.shop .p::before{content:none}
+  .item.shop .q,.item.shop .p{justify-content:flex-start}
+  .item.shop .q input,.item.shop .p input{text-align:left;width:70px;flex:none}
+  .item.ideas{grid-template-columns:26px 1fr 28px}
+  .item.ideas .st{grid-row:1;grid-column:1}
+  .item.ideas .main{grid-row:1;grid-column:2}
+  .item.ideas .x{grid-row:1;grid-column:3}
+  .item.ideas .stw{grid-row:2;grid-column:2;text-align:left}
+  .item.ideas .w{grid-row:3;grid-column:2}
+  .item.plan{grid-template-columns:1fr 28px}
+  .item.plan .main{grid-row:1;grid-column:1}
+  .item.plan .x{grid-row:1;grid-column:2}
+  .item.plan .tm{grid-row:2;grid-column:1;text-align:left;width:90px}
+  .item.plan .w{grid-row:3;grid-column:1}
+  .item .w{max-width:160px}
+}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <header class="hero" id="hero">
-    <div class="eyebrow">Сюрприз · вход только для своих</div>
+    <div class="eyebrow">Сюрприз для Кати</div>
     <h1><a id="title" href="#">Катин вечер</a></h1>
     <div class="hero-meta" id="meta"></div>
-    <p class="secret">Катя не должна видеть эту страницу. Не открывай её при ней и не пересылай ссылку никому, кроме команды</p>
+    <p class="secret">Страница только для команды<br>Не открывай её при Кате и не пересылай ссылку</p>
   </header>
 
   <nav class="crumbs" id="crumbs" hidden aria-label="Разделы"></nav>
@@ -205,9 +299,9 @@ body::before{background:var(--bg)}
 
   <div id="homeView">
     <section class="stats" id="stats" aria-label="Сводка"></section>
-    <h2 class="h2">Разделы <small>нажми, чтобы открыть</small></h2>
+    <h2 class="h2">Разделы</h2>
     <div class="tiles" id="tiles"><div class="loading">Загружаем план вечера…</div></div>
-    <h2 class="h2">Кто что делает <small>все дела одного человека</small></h2>
+    <h2 class="h2">Кто что делает</h2>
     <div class="people" id="peopleTiles"></div>
     <form class="newsec" id="newsec">
       <div class="lbl">Новый раздел</div>
@@ -230,7 +324,7 @@ body::before{background:var(--bg)}
     <main class="boards" id="boards"></main>
   </div>
 
-  <p class="foot">Все правки сохраняются сами и через несколько секунд видны остальным<br><span id="sync"></span></p>
+  <p class="foot">Правки сохраняются сами и видны остальным через несколько секунд<br><span id="sync"></span></p>
 </div>
 
 <script>
@@ -288,8 +382,8 @@ async function rpc(fn, body) {
 let pushTimer = null, busy = false, dirty = false, lastOk = 0;
 function status(ok) {
   const el = $("#sync"); if (!el) return;
-  if (ok) { lastOk = now(); el.textContent = "Сохранено для всех · " + new Date().toLocaleTimeString("ru-RU", { hour:"2-digit", minute:"2-digit" }); note(""); }
-  else note("Нет связи. Правки сохранены на этом устройстве и отправятся, когда появится интернет");
+  if (ok) { lastOk = now(); el.textContent = "Сохранено для всех в " + new Date().toLocaleTimeString("ru-RU", { hour:"2-digit", minute:"2-digit" }); note(""); }
+  else note("Нет связи, правки сохранены на этом устройстве и уйдут, когда появится интернет");
 }
 function schedulePush() { dirty = true; clearTimeout(pushTimer); pushTimer = setTimeout(() => { pushTimer = null; sync(); }, 700); }
 async function sync() {
@@ -379,7 +473,7 @@ function renderTiles(secs) {
     let metric = "", bar = "", prev = [];
     if (s.kind === "shop") {
       const got = all.filter(i => i.done).length, sum = all.reduce((a, i) => a + num(i.price) * (num(i.qty) || 1), 0);
-      metric = `<b>${got} / ${all.length}</b><span>куплено · ${fmt(sum)} ${esc(cur)}</span>`;
+      metric = `<b>${got} / ${all.length}</b><span>куплено, ${fmt(sum)} ${esc(cur)}</span>`;
       bar = pct(got, all.length);
       prev = all.filter(i => !i.done).map(i => `<li><i class="dot"></i><span>${esc(i.text)}</span></li>`);
     } else if (s.kind === "plan") {
@@ -389,7 +483,7 @@ function renderTiles(secs) {
         .map(i => `<li><span class="tm">${esc(i.time || "—")}</span><span>${esc(i.text)}</span></li>`);
     } else {
       const live = all.filter(i => (i.st | 0) !== 3), take = live.filter(i => (i.st | 0) >= 1).length, ready = live.filter(i => (i.st | 0) === 2).length;
-      metric = `<b>${take} / ${live.length}</b><span>берём · готово ${ready}</span>`;
+      metric = `<b>${take} / ${live.length}</b><span>берём, готово ${ready}</span>`;
       bar = pct(ready, live.length);
       const order = live.slice().sort((a, b) => ((b.st | 0) === 1) - ((a.st | 0) === 1));
       prev = order.map(i => `<li><i class="dot s${i.st | 0}"></i><span>${esc(i.text)}</span></li>`);
@@ -435,16 +529,19 @@ function itemRow(kind, id, it) {
   if (kind === "shop") return `<div class="item shop ${it.done ? "done" : ""}" data-col="items" data-id="${id}">
       <button class="chk" data-act="done" role="checkbox" aria-checked="${!!it.done}" aria-label="Куплено"></button>
       ${main("Что купить", "где, какой, ссылка")}
-      <label class="q"><input type="number" inputmode="decimal" data-f="qty" value="${v("qty")}" placeholder="1" aria-label="Количество"></label>
-      <label class="p"><input type="number" inputmode="decimal" data-f="price" value="${v("price")}" placeholder="—" aria-label="Цена за штуку"></label>
+      <label class="q"><input type="number" inputmode="decimal" data-f="qty" value="${v("qty")}" placeholder="1" aria-label="Количество"><span>шт</span></label>
+      <label class="p"><input type="number" inputmode="decimal" data-f="price" value="${v("price")}" placeholder="цена" aria-label="Цена за штуку"><span>${esc(meta("currency"))}</span></label>
       ${whoSelect("items", id, it)}${x}</div>`;
   if (kind === "plan") return `<div class="item plan" data-col="items" data-id="${id}">
+      ${main("Что происходит", "детали")}
       <input type="time" class="tm" data-f="time" value="${v("time")}" aria-label="Время">
-      ${main("Что происходит", "детали")}${whoSelect("items", id, it)}${x}</div>`;
+      ${whoSelect("items", id, it)}${x}</div>`;
   const s = it.st | 0;
   return `<div class="item ideas s${s}" data-col="items" data-id="${id}">
-      <button class="st" data-act="st" data-s="${s}" title="Нажми, чтобы сменить статус">${STATUS[s]}</button>
-      ${main("Идея", "детали, что нужно")}${whoSelect("items", id, it)}${x}</div>`;
+      <button class="st" data-act="st" data-s="${s}" aria-label="Статус: ${STATUS[s]}, нажми, чтобы сменить"></button>
+      ${main("Идея", "детали, что нужно")}
+      <span class="stw" data-s="${s}">${STATUS[s]}</span>
+      ${whoSelect("items", id, it)}${x}</div>`;
 }
 function renderBoards(secs) {
   const box = $("#boards");
@@ -459,17 +556,17 @@ function renderBoards(secs) {
     let foot = "";
     if (s.kind === "shop") {
       const sum = all.reduce((a, [, i]) => a + num(i.price) * (num(i.qty) || 1), 0);
-      foot = `<span>Итого по разделу: <b>${fmt(sum)} ${esc(cur)}</b> · куплено ${all.filter(([, i]) => i.done).length} из ${all.length}</span>`;
+      foot = `<span>Итого <b>${fmt(sum)} ${esc(cur)}</b>, куплено ${all.filter(([, i]) => i.done).length} из ${all.length}</span>`;
     } else if (s.kind === "ideas") {
-      foot = `<span>Берём ${all.filter(([, i]) => (i.st|0) === 1 || (i.st|0) === 2).length} · готово ${all.filter(([, i]) => (i.st|0) === 2).length}</span>`;
+      foot = `<span>Берём ${all.filter(([, i]) => (i.st|0) === 1 || (i.st|0) === 2).length}, готово ${all.filter(([, i]) => (i.st|0) === 2).length}</span>`;
     } else foot = "<span></span>";
     const rows = (s.kind === "plan" ? shown.sort((a, b) => String(a[1].time || "99").localeCompare(String(b[1].time || "99"))) : shown)
       .map(([id, it]) => itemRow(s.kind, id, it)).join("");
     return `<section class="board ${s.wide ? "wide" : ""}" id="${esc(sid)}" data-col="sections" data-id="${esc(sid)}">
       <div class="kindtag">${KINDNAME[s.kind] || ""}</div>
       <div class="bhead"><input type="text" data-f="title" value="${esc(val("sections", sid, "title", s.title))}" aria-label="Название раздела"><span class="count">${all.length}</span></div>
-      ${s.hint ? `<p class="bhint">${esc(s.hint)}</p>` : ""}
-      ${s.kind === "shop" && rows ? `<div class="colhead shop"><span></span><span>Что</span><span class="r">Кол-во</span><span class="r">Цена</span><span>Кто</span><span></span></div>` : ""}
+      ${s.hint ? `<p class="bhint">${esc(s.hint).split(/\.\s+/).join("<br>")}</p>` : ""}
+
       <div class="items">${rows || `<div class="empty">${all.length ? "Здесь нет пунктов этого человека" : "Пока пусто, добавь первый пункт"}</div>`}</div>
       <div class="add"><input type="text" data-add="${esc(sid)}" placeholder="${s.kind === "shop" ? "Добавить покупку" : s.kind === "plan" ? "Добавить шаг вечера" : "Добавить идею"}" aria-label="Новый пункт"><button data-act="add">+</button></div>
       <div class="bfoot">${foot}${personPage ? `<a class="jump" href="${href(sid)}">Весь раздел →</a>` : '<button class="linkbtn" data-act="delsec">Удалить раздел</button>'}</div>
@@ -496,7 +593,7 @@ function render() {
     renderCrumbs(secs, r);
     $("#toolbar").hidden = personPage;
     const ph = $("#pagehead"); ph.hidden = !personPage;
-    if (personPage) ph.innerHTML = `<h2>${esc(personName(r.slice(4)))}</h2><p>Все дела из всех разделов. Новый пункт здесь сразу назначается на этого человека</p>`;
+    if (personPage) ph.innerHTML = `<h2>${esc(personName(r.slice(4)))}</h2><p>Все дела из всех разделов<br>Новый пункт отсюда сразу назначается на этого человека</p>`;
     else renderToolbar();
     renderBoards(personPage ? secs : secs.filter(([id]) => id === r));
   }
@@ -589,7 +686,7 @@ $("#newsec").addEventListener("submit", e => {
 /* ---------- start ---------- */
 renderHead();
 if (!KEYM) {
-  $("#tiles").innerHTML = '<div class="loading">Открой полную ссылку, которую прислала Вика: в ней есть ключ доступа</div>';
+  $("#tiles").innerHTML = '<div class="loading">Открой полную ссылку от Вики, в ней ключ доступа</div>';
   $("#newsec").hidden = true;
 } else {
   api = syncApi; mode = "ready";
