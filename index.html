@@ -371,7 +371,7 @@ const matchWho = (it, w) => w === "all" || (w === "none" ? !it.who : it.who === 
 const secItems = sid => [...S.items.entries()].filter(([, it]) => it.sec === sid).sort((a, b) => (a[1].ord || 0) - (b[1].ord || 0));
 const isOpen = (kind, it) => kind === "shop" ? !it.done : kind === "plan" ? true : ((it.st | 0) < 2);
 const label = s => s.title || KINDNAME[s.kind] || "Раздел";
-const personName = w => w === "none" ? "Не назначено" : w;
+const personName = w => w === "none" ? "Ничьё" : w;
 function daysLeft() {
   const n = new Date(); const t = new Date(2026, 11, 29);
   return Math.ceil((t - new Date(n.getFullYear(), n.getMonth(), n.getDate())) / 864e5);
