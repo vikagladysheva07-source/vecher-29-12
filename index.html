@@ -53,7 +53,7 @@ h1{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(
 @media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
 
 /* toolbar */
-.toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 0;background:linear-gradient(var(--bg) 70%,rgba(12,9,7,0))}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:0 0 16px}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .toolbar .lbl{color:var(--dim);font-size:12.5px;margin-right:2px}
 .chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13.5px;color:var(--muted)}
@@ -141,40 +141,93 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .newsec .lbl{flex-basis:100%;font-family:var(--display);font-size:20px}
 .foot{color:var(--dim);font-size:12.5px;text-align:center;margin-top:30px}
 .loading{color:var(--muted);text-align:center;padding:40px 0}
+.hero.compact{padding:22px 0 10px}
+.hero.compact h1{font-size:26px;margin:6px 0 0}
+.hero h1 a{color:inherit;text-decoration:none}
+.hero.compact .hero-meta,.hero.compact .secret{display:none}
+.hero.compact::before{height:240px;opacity:.55}
+.hero.compact::after{width:64px;height:64px;top:-14px}
+.h2{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-family:var(--display);font-weight:500;font-size:22px;margin:34px 0 14px}
+.h2 small{font-family:var(--body);font-size:13px;color:var(--dim);font-weight:400}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+.tile{display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:18px;background:var(--floor);border:1px solid var(--line);text-decoration:none;color:var(--fg);transition:border-color .2s,transform .2s,box-shadow .2s;min-width:0}
+.tile:hover{border-color:var(--line-2);transform:translateY(-2px);box-shadow:0 14px 40px -22px rgba(255,200,130,.45)}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
+.tile h3{font-family:var(--display);font-weight:500;font-size:22px;margin:0;line-height:1.2;text-wrap:balance}
+.metric{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.metric b{font-family:var(--display);font-size:34px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.metric span{color:var(--muted);font-size:13px}
+.tile .bar{margin-top:0}
+.prev{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--muted)}
+.prev li{display:flex;gap:8px;align-items:baseline;min-width:0}
+.prev li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.prev .more{color:var(--dim)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--dim);flex:none;transform:translateY(-2px)}
+.dot.s1{background:var(--amber)}.dot.s2{background:var(--sage)}
+.prev .tm{color:var(--glow);font-variant-numeric:tabular-nums;flex:none}
+.open{margin-top:auto;display:flex;justify-content:space-between;align-items:center;color:var(--glow);font-size:13.5px;padding-top:12px;border-top:1px solid var(--line)}
+.open em{font-style:normal;color:var(--dim)}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:12px}
+.ptile{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--fg);min-width:0}
+.ptile:hover{border-color:var(--line-2)}
+.ptile b{font-family:var(--display);font-size:21px;font-weight:500}
+.ptile span{color:var(--muted);font-size:13px}
+.ptile i{font-style:normal;color:var(--glow);font-size:13px;margin-top:4px}
+.crumbs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:10px;padding:10px 0;margin-bottom:18px;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{background:var(--bg)}
+.back{flex:none;color:var(--fg);text-decoration:none;border:1px solid var(--line-2);border-radius:999px;padding:6px 14px;font-size:13.5px}
+.back:hover{background:var(--surface-2)}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;min-width:0}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{white-space:nowrap;color:var(--muted);text-decoration:none;padding:6px 11px;border-radius:999px;font-size:13.5px}
+.tabs a:hover{color:var(--fg)}
+.tabs a[aria-current="page"]{color:var(--bg);background:var(--fg)}
+#pageView .boards{grid-template-columns:1fr}
+.pagehead{margin:4px 0 16px}
+.pagehead h2{font-family:var(--display);font-weight:500;font-size:30px;margin:0}
+.pagehead p{color:var(--muted);margin:4px 0 0;font-size:14px}
 </style>
 </head>
 <body>
 
 <div class="wrap">
-  <header class="hero">
+  <header class="hero" id="hero">
     <div class="eyebrow">Сюрприз · вход только для своих</div>
-    <h1 id="title">Катин вечер</h1>
+    <h1><a id="title" href="#">Катин вечер</a></h1>
     <div class="hero-meta" id="meta"></div>
     <p class="secret">Катя не должна видеть эту страницу. Не открывай её при ней и не пересылай ссылку никому, кроме команды</p>
   </header>
 
-  <section class="stats" id="stats" aria-label="Сводка"></section>
-
-  <nav class="toolbar" aria-label="Фильтр">
-    <span class="lbl">Чьё:</span>
-    <span id="people" style="display:contents"></span>
-    <span class="sp"></span>
-    <span id="jumps" style="display:contents"></span>
-  </nav>
-
+  <nav class="crumbs" id="crumbs" hidden aria-label="Разделы"></nav>
   <div id="notice"></div>
-  <main class="boards" id="boards"><div class="loading">Загружаем план вечера…</div></main>
 
-  <form class="newsec" id="newsec">
-    <div class="lbl">Новый раздел</div>
-    <input id="ns-title" type="text" placeholder="Например: Подарок от всех, Меню, Музыка" autocomplete="off">
-    <select id="ns-kind" aria-label="Тип раздела">
-      <option value="ideas">Идеи и задачи</option>
-      <option value="shop">Список покупок</option>
-      <option value="plan">План по времени</option>
-    </select>
-    <button type="submit">Добавить раздел</button>
-  </form>
+  <div id="homeView">
+    <section class="stats" id="stats" aria-label="Сводка"></section>
+    <h2 class="h2">Разделы <small>нажми, чтобы открыть</small></h2>
+    <div class="tiles" id="tiles"><div class="loading">Загружаем план вечера…</div></div>
+    <h2 class="h2">Кто что делает <small>все дела одного человека</small></h2>
+    <div class="people" id="peopleTiles"></div>
+    <form class="newsec" id="newsec">
+      <div class="lbl">Новый раздел</div>
+      <input id="ns-title" type="text" placeholder="Например: Подарок от всех, Меню, Музыка" autocomplete="off">
+      <select id="ns-kind" aria-label="Тип раздела">
+        <option value="ideas">Идеи и задачи</option>
+        <option value="shop">Список покупок</option>
+        <option value="plan">План по времени</option>
+      </select>
+      <button type="submit">Добавить раздел</button>
+    </form>
+  </div>
+
+  <div id="pageView" hidden>
+    <div class="pagehead" id="pagehead" hidden></div>
+    <nav class="toolbar" id="toolbar" aria-label="Фильтр">
+      <span class="lbl">Чьё:</span>
+      <span id="people" style="display:contents"></span>
+    </nav>
+    <main class="boards" id="boards"></main>
+  </div>
+
   <p class="foot">Все правки сохраняются сами и через несколько секунд видны остальным<br><span id="sync"></span></p>
 </div>
 
@@ -274,7 +327,7 @@ function daysLeft() {
 }
 function renderHead() {
   document.title = meta("title") + " 29.12";
-  const t = $("#title"); if (document.activeElement?.id !== "m-title") t.textContent = meta("title");
+  const t = $("#title"); t.textContent = meta("title"); t.href = href("");
   const fields = [["date","Когда"],["place","Где"],["guests","Гостей"],["team","Команда"],["currency","Валюта"]];
   const box = $("#meta");
   if (!box.children.length) {
@@ -301,10 +354,71 @@ function renderStats() {
     <div class="stat"><b>${fmt(total)} ${esc(cur)}</b><small>бюджет по ценам, осталось купить на ${fmt(left)} ${esc(cur)}</small></div>
     <div class="stat"><b>${taken} / ${ideas.length}</b><small>идей берём, готово ${ready}</small><div class="bar"><i style="width:${pct(ready, ideas.length)}%"></i></div></div>`;
 }
-function renderToolbar(secs) {
+function renderToolbar() {
   const ppl = ["all", ...team(), "none"];
   $("#people").innerHTML = ppl.map(p => `<button class="chip" data-act="who" data-who="${esc(p)}" aria-pressed="${S.who === p}">${p === "all" ? "Все" : p === "none" ? "Ничьё" : esc(p)}</button>`).join("");
-  $("#jumps").innerHTML = secs.map(([id, s]) => `<a class="jump" href="#${esc(id)}">${esc(s.title || KINDNAME[s.kind])}</a>`).join("");
+}
+/* ---------- pages ---------- */
+const route = () => { const m = location.hash.match(/[#&]p=([^&]*)/); return m ? decodeURIComponent(m[1]) : ""; };
+const href = p => "#k=" + KEYM + (p ? "&p=" + encodeURIComponent(p) : "");
+const curWho = () => { const r = route(); return r.startsWith("who:") ? r.slice(4) : S.who; };
+const matchWho = (it, w) => w === "all" || (w === "none" ? !it.who : it.who === w || it.who === "Все");
+const secItems = sid => [...S.items.entries()].filter(([, it]) => it.sec === sid).sort((a, b) => (a[1].ord || 0) - (b[1].ord || 0));
+const isOpen = (kind, it) => kind === "shop" ? !it.done : kind === "plan" ? true : ((it.st | 0) < 2);
+const label = s => s.title || KINDNAME[s.kind] || "Раздел";
+const personName = w => w === "none" ? "Без ответственного" : w;
+function renderTiles(secs) {
+  const box = $("#tiles");
+  if (!S.got.s && !S.sections.size) { box.innerHTML = '<div class="loading">Загружаем план вечера…</div>'; return; }
+  if (!secs.length) { box.innerHTML = '<div class="loading">Разделов пока нет. Добавь первый ниже</div>'; return; }
+  const cur = meta("currency"); const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+  box.innerHTML = secs.map(([sid, s]) => {
+    const all = secItems(sid).map(([, it]) => it);
+    let metric = "", bar = "", prev = [];
+    if (s.kind === "shop") {
+      const got = all.filter(i => i.done).length, sum = all.reduce((a, i) => a + num(i.price) * (num(i.qty) || 1), 0);
+      metric = `<b>${got} / ${all.length}</b><span>куплено · ${fmt(sum)} ${esc(cur)}</span>`;
+      bar = pct(got, all.length);
+      prev = all.filter(i => !i.done).map(i => `<li><i class="dot"></i><span>${esc(i.text)}</span></li>`);
+    } else if (s.kind === "plan") {
+      const t = all.map(i => i.time).filter(Boolean).sort();
+      metric = `<b>${all.length}</b><span>${all.length ? (t.length ? "шагов, с " + esc(t[0]) + " до " + esc(t[t.length - 1]) : "шагов") : "шагов пока нет"}</span>`;
+      prev = all.slice().sort((a, b) => String(a.time || "99").localeCompare(String(b.time || "99")))
+        .map(i => `<li><span class="tm">${esc(i.time || "—")}</span><span>${esc(i.text)}</span></li>`);
+    } else {
+      const live = all.filter(i => (i.st | 0) !== 3), take = live.filter(i => (i.st | 0) >= 1).length, ready = live.filter(i => (i.st | 0) === 2).length;
+      metric = `<b>${take} / ${live.length}</b><span>берём · готово ${ready}</span>`;
+      bar = pct(ready, live.length);
+      const order = live.slice().sort((a, b) => ((b.st | 0) === 1) - ((a.st | 0) === 1));
+      prev = order.map(i => `<li><i class="dot s${i.st | 0}"></i><span>${esc(i.text)}</span></li>`);
+    }
+    const more = prev.length > 3 ? `<li class="more">и ещё ${prev.length - 3}</li>` : "";
+    return `<a class="tile" href="${href(sid)}">
+      <div class="kindtag">${KINDNAME[s.kind] || ""}</div>
+      <h3>${esc(label(s))}</h3>
+      <div class="metric">${metric}</div>
+      ${bar !== "" ? `<div class="bar"><i style="width:${bar}%"></i></div>` : ""}
+      <ul class="prev">${prev.slice(0, 3).join("") || '<li><span>Пока пусто</span></li>'}${more}</ul>
+      <div class="open"><span>Открыть раздел</span><em>${all.length} пунктов</em></div>
+    </a>`;
+  }).join("");
+}
+function renderPeopleTiles() {
+  const items = [...S.items.values()];
+  const ppl = [...team(), "none"];
+  $("#peopleTiles").innerHTML = ppl.map(w => {
+    const mine = items.filter(it => w === "none" ? !it.who : it.who === w || it.who === "Все");
+    const open = mine.filter(it => isOpen(S.sections.get(it.sec)?.kind, it));
+    const next = open[0];
+    return `<a class="ptile" href="${href("who:" + w)}"><b>${esc(personName(w))}</b>
+      <span>${open.length} открыто из ${mine.length}</span>
+      <i>${next ? "Дальше: " + esc(String(next.text).slice(0, 40)) : "Открыть"}</i></a>`;
+  }).join("");
+}
+function renderCrumbs(secs, r) {
+  $("#crumbs").innerHTML = `<a class="back" href="${href("")}">← Обзор</a><div class="tabs">${secs.map(([id, s]) =>
+    `<a href="${href(id)}" ${id === r ? 'aria-current="page"' : ""}>${esc(label(s))}</a>`).join("")}</div>`;
+  const cur = $("#crumbs .tabs [aria-current]"); if (cur) cur.scrollIntoView({ block: "nearest", inline: "center" });
 }
 function whoSelect(col, id, it) {
   const opts = team(); const cur = it.who || "";
@@ -336,7 +450,9 @@ function renderBoards(secs) {
   const cur = meta("currency");
   box.innerHTML = secs.map(([sid, s]) => {
     const all = [...S.items.entries()].filter(([, it]) => it.sec === sid).sort((a, b) => (a[1].ord || 0) - (b[1].ord || 0));
-    const shown = all.filter(([, it]) => S.who === "all" || (S.who === "none" ? !it.who : it.who === S.who || it.who === "Все"));
+    const W = curWho(), personPage = route().startsWith("who:");
+    const shown = all.filter(([, it]) => matchWho(it, W));
+    if (personPage && !shown.length) return "";
     let foot = "";
     if (s.kind === "shop") {
       const sum = all.reduce((a, [, i]) => a + num(i.price) * (num(i.qty) || 1), 0);
@@ -353,9 +469,9 @@ function renderBoards(secs) {
       ${s.kind === "shop" && rows ? `<div class="colhead shop"><span></span><span>Что</span><span class="r">Кол-во</span><span class="r">Цена</span><span>Кто</span><span></span></div>` : ""}
       <div class="items">${rows || `<div class="empty">${all.length ? "Здесь нет пунктов этого человека" : "Пока пусто, добавь первый пункт"}</div>`}</div>
       <div class="add"><input type="text" data-add="${esc(sid)}" placeholder="${s.kind === "shop" ? "Добавить покупку" : s.kind === "plan" ? "Добавить шаг вечера" : "Добавить идею"}" aria-label="Новый пункт"><button data-act="add">+</button></div>
-      <div class="bfoot">${foot}<button class="linkbtn" data-act="delsec">Удалить раздел</button></div>
+      <div class="bfoot">${foot}${personPage ? `<a class="jump" href="${href(sid)}">Весь раздел →</a>` : '<button class="linkbtn" data-act="delsec">Удалить раздел</button>'}</div>
     </section>`;
-  }).join("");
+  }).join("") || `<div class="loading">Здесь пока нет дел. Назначь человека в любом разделе в поле «кто?»</div>`;
 }
 function render() {
   if (!api) return;
@@ -367,7 +483,20 @@ function render() {
     keep = { id: host.dataset.id, f: a.dataset.f, s: a.selectionStart, e: a.selectionEnd };
   } else if (a && a.dataset && a.dataset.add) keep = { add: a.dataset.add, v: a.value };
   const secs = [...S.sections.entries()].sort((x, y) => (x[1].ord || 0) - (y[1].ord || 0));
-  renderHead(); renderStats(); renderToolbar(secs); renderBoards(secs);
+  const r = route(), personPage = r.startsWith("who:");
+  const home = !r || (!personPage && S.got.s && !S.sections.has(r));
+  renderHead();
+  $("#hero").classList.toggle("compact", !home);
+  $("#homeView").hidden = !home; $("#pageView").hidden = home; $("#crumbs").hidden = home;
+  if (home) { renderStats(); renderTiles(secs); renderPeopleTiles(); }
+  else {
+    renderCrumbs(secs, r);
+    $("#toolbar").hidden = personPage;
+    const ph = $("#pagehead"); ph.hidden = !personPage;
+    if (personPage) ph.innerHTML = `<h2>${esc(personName(r.slice(4)))}</h2><p>Все дела из всех разделов. Новый пункт здесь сразу назначается на этого человека</p>`;
+    else renderToolbar();
+    renderBoards(personPage ? secs : secs.filter(([id]) => id === r));
+  }
   document.querySelectorAll("#boards textarea").forEach(autosize);
   if (keep) {
     const el = keep.add ? document.querySelector(`[data-add="${CSS.escape(keep.add)}"]`)
@@ -410,7 +539,7 @@ document.addEventListener("change", e => {
 function addItem(sid, input) {
   const text = input.value.trim(); if (!text) { input.focus(); return; }
   const kind = S.sections.get(sid)?.kind;
-  const d = { sec: sid, text, note: "", who: S.who !== "all" && S.who !== "none" ? S.who : "", ord: Date.now() };
+  const d = { sec: sid, text, note: "", who: (w => w !== "all" && w !== "none" ? w : "")(curWho()), ord: Date.now() };
   if (kind === "shop") Object.assign(d, { qty: "", price: "", done: false });
   else if (kind === "plan") d.time = "";
   else d.st = 0;
@@ -436,6 +565,7 @@ document.addEventListener("click", e => {
     confirmClick(b, "Точно удалить раздел со всеми пунктами?", () => {
       [...S.items.entries()].filter(([, it]) => it.sec === sid).forEach(([id]) => api.del("items", id));
       api.del("sections", sid);
+      if (route() === sid) location.hash = href("");
     });
   }
 });
@@ -447,14 +577,16 @@ $("#newsec").addEventListener("submit", e => {
   e.preventDefault();
   const title = $("#ns-title").value.trim(); if (!title) { $("#ns-title").focus(); return; }
   const kind = $("#ns-kind").value;
-  api.set("sections", newId("s"), { title, kind, ord: Date.now(), hint: "", wide: kind === "shop" });
+  const sid = newId("s");
+  api.set("sections", sid, { title, kind, ord: Date.now(), hint: "", wide: kind === "shop" });
   $("#ns-title").value = "";
+  location.hash = href(sid);
 });
 
 /* ---------- start ---------- */
 renderHead();
 if (!KEYM) {
-  $("#boards").innerHTML = '<div class="loading">Открой полную ссылку, которую прислала Вика: в ней есть ключ доступа</div>';
+  $("#tiles").innerHTML = '<div class="loading">Открой полную ссылку, которую прислала Вика: в ней есть ключ доступа</div>';
   $("#newsec").hidden = true;
 } else {
   api = syncApi; mode = "ready";
@@ -464,6 +596,7 @@ if (!KEYM) {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) sync(); });
 }
 setInterval(renderStats, 3600 * 1000);
+addEventListener("hashchange", () => { S.who = "all"; render(); scrollTo(0, 0); });
 const resizeAll = () => document.querySelectorAll('#boards textarea').forEach(autosize);
 if (document.fonts) document.fonts.ready.then(resizeAll);
 addEventListener('resize', resizeAll);
