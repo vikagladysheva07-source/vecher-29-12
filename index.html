@@ -464,6 +464,9 @@ if (!KEYM) {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) sync(); });
 }
 setInterval(renderStats, 3600 * 1000);
+const resizeAll = () => document.querySelectorAll('#boards textarea').forEach(autosize);
+if (document.fonts) document.fonts.ready.then(resizeAll);
+addEventListener('resize', resizeAll);
 })();
 </script>
 </body>
