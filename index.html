@@ -484,7 +484,8 @@ body{position:relative}
 .frow input,.ptitle textarea{color:var(--fg)}
 .form .frow{border-color:rgba(255,255,255,.08)}
 
-.csub{margin:4px 2px 0;font-size:13.5px;color:var(--muted)}
+.csub{margin:18px 2px 8px;font-size:13.5px;color:var(--muted)}
+.chero{display:block;width:100%;text-align:left;margin-top:8px;padding:20px 20px 22px;color:var(--fg)}.chero small{display:block;font-size:12.5px;color:var(--muted);margin-bottom:8px}.chero h3{margin:0 0 10px;font-size:24px;line-height:1.2;font-weight:700}.chero p{margin:0;font-size:15px;line-height:1.55;color:rgba(255,255,255,.82);display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
 .nrow.appr{background:linear-gradient(160deg,rgba(237,203,107,.14),rgba(212,175,55,.03))}
 .appr-btn{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--fg);border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:600;white-space:nowrap}
 .appr-btn.on{border-color:rgba(237,203,107,.5);background:linear-gradient(160deg,rgba(237,203,107,.24),rgba(212,175,55,.06));color:#F7E6A8;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 18px -6px rgba(212,175,55,.6)}
@@ -876,19 +877,23 @@ function notesScreen(h, sid, tabs) {
 const conceptSec = () => firstOf("concept");
 function conceptScreen() {
   const sid = conceptSec();
-  const all = sid ? secItems(sid).sort((a, b) => (b[1].st | 0) - (a[1].st | 0) || (b[1].u || 0) - (a[1].u || 0)) : [];
-  const ok = all.filter(([, it]) => (it.st | 0) === 1);
+  const all = sid ? secItems(sid).sort((a, b) => (a[1].ord || 0) - (b[1].ord || 0) || (a[1].u || 0) - (b[1].u || 0)) : [];
+  const main = all.find(([, it]) => (it.st | 0) === 1);
+  const rest = all.filter(x => x !== main);
   const row = ([id, it]) => { const th = (it.imgs || [])[0];
-    return `<button class="nrow ${(it.st | 0) === 1 ? "appr" : ""}" data-act="note" data-nid="${esc(id)}"><div><b>${esc(it.text) || "Новая концепция"}</b><small>${(it.st | 0) === 1 ? `<span class="gtx" style="font-weight:700">Утверждена</span>` : `<span>${ndate(it.u)}</span>`}${esc(firstLine(it.body)) || ((it.imgs || []).length ? "фото" : "нет текста")}</small></div>${th ? `<img src="${esc(th.th)}" alt="">` : ""}</button>`; };
-  return `<div class="ptitle phead"><h2>Концепция</h2><button class="ne-ic" data-act="newconcept" aria-label="Добавить вариант">${ic("compose")}</button></div>
-    ${all.length ? `<p class="csub">${ok.length ? "Концепция вечера утверждена" : "Выберите вариант и нажмите «Утвердить» внутри"}</p><div class="card nlist">${all.map(row).join("")}</div>`
-      : `<div class="empty">Здесь будет концепция всего мероприятия<br>Добавь вариант карандашом справа, а когда выберете, нажми «Утвердить»</div>`}`;
+    return `<button class="nrow" data-act="note" data-nid="${esc(id)}"><div><b>${esc(it.text) || "Новая заметка"}</b><small><span>${ndate(it.u)}</span>${esc(firstLine(it.body)) || ((it.imgs || []).length ? "фото" : "нет текста")}</small></div>${th ? `<img src="${esc(th.th)}" alt="">` : ""}</button>`; };
+  const hero = main ? `<button class="card chero" data-act="note" data-nid="${esc(main[0])}"><small>Идея вечера</small><h3 class="gtx">${esc(main[1].text) || "Название концепции"}</h3><p>${esc(main[1].body || "").replace(/\n/g, "<br>") || "Опиши идею вечера в двух словах"}</p></button>`
+    : `<button class="card chero" data-act="newmain"><small>Идея вечера</small><h3 class="gtx">Описать концепцию</h3><p>Название и общая мысль вечера, потом по областям</p></button>`;
+  return `<div class="ptitle phead"><h2>Концепция</h2><button class="ne-ic" data-act="newconcept" aria-label="Добавить заметку">${ic("compose")}</button></div>
+    ${hero}
+    <p class="csub">По областям</p>
+    ${rest.length ? `<div class="card nlist">${rest.map(row).join("")}</div>` : `<div class="empty">Добавь область карандашом справа: свет, стол, музыка, меню</div>`}`;
 }
-function newConcept() {
+function newConcept(main) {
   let sid = conceptSec();
   if (!sid) { sid = newId("s"); api.set("sections", sid, { title: "Концепция", kind: "concept", ord: 0, hint: "" }); }
   const id = newId("n");
-  api.set("items", id, { sec: sid, text: "", body: "", imgs: [], st: 0, ord: Date.now() });
+  api.set("items", id, { sec: sid, text: "", body: "", imgs: [], st: main ? 1 : 0, ord: main ? 0 : Date.now() });
   openNote(id, true);
 }
 function hubScreen(h) {
@@ -1149,7 +1154,6 @@ function newNote(sid) {
 function openNote(id, fresh) {
   const it = S.items.get(id); if (!it) return; noteId = id;
   $("#nedit").innerHTML = `<div class="ne-top"><button class="ne-back" data-act="note-close">${ic("back")}${S.sections.get(it.sec)?.kind === "concept" ? "Концепция" : "Банк идей"}</button><span class="sp"></span>
-      ${S.sections.get(it.sec)?.kind === "concept" ? `<button class="appr-btn ${(it.st | 0) === 1 ? "on" : ""}" data-act="approve">${(it.st | 0) === 1 ? "Утверждена" : "Утвердить"}</button>` : ""}
       <label class="ne-ic" aria-label="Добавить фото">${ic("photo")}<input type="file" accept="image/*" multiple data-photos></label>
       <button class="ne-ic" data-act="note-del" aria-label="Удалить заметку">${ic("trash")}</button>
       <button class="ne-done" data-act="note-close">Готово</button></div>
@@ -1224,11 +1228,7 @@ document.addEventListener("click", e => {
   if (act === "who") { S.who = b.dataset.who; render(); return; }
   if (act === "newnote") { newNote(b.dataset.sec); return; }
   if (act === "newconcept") { newConcept(); return; }
-  if (act === "approve") {
-    const it = S.items.get(noteId); if (!it) return; const on = (it.st | 0) !== 1;
-    if (on) secItems(it.sec).forEach(([id, x]) => { if ((x.st | 0) === 1) api.update("items", id, { st: 0 }); });
-    api.update("items", noteId, { st: on ? 1 : 0 });
-    const bt = b; bt.classList.toggle("on", on); bt.textContent = on ? "Утверждена" : "Утвердить"; toast(on ? "Концепция утверждена" : "Утверждение снято"); return; }
+  if (act === "newmain") { newConcept(true); return; }
   if (act === "note") { openNote(b.dataset.nid); return; }
   if (act === "note-close") { closeNote(); return; }
   if (act === "note-del") { confirmClick(b, "?", () => { const id = noteId; const ph = ((S.items.get(id) || {}).imgs || []).map(p => p.id); noteId = ""; $("#nedit").hidden = true; document.body.style.overflow = ""; api.del("items", id); (async () => { for (const pid of ph) await imgStore(pid, null); })(); }); return; }
