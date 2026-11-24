@@ -483,6 +483,13 @@ body{position:relative}
 .notice{background:rgba(212,175,55,.08);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 .frow input,.ptitle textarea{color:var(--fg)}
 .form .frow{border-color:rgba(255,255,255,.08)}
+
+.csub{margin:4px 2px 0;font-size:13.5px;color:var(--muted)}
+.nrow.appr{background:linear-gradient(160deg,rgba(237,203,107,.14),rgba(212,175,55,.03))}
+.appr-btn{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--fg);border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:600;white-space:nowrap}
+.appr-btn.on{border-color:rgba(237,203,107,.5);background:linear-gradient(160deg,rgba(237,203,107,.24),rgba(212,175,55,.06));color:#F7E6A8;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 18px -6px rgba(212,175,55,.6)}
+.ne-top .ne-ic{flex:none;width:38px;height:38px}.ne-back,.ne-done,.appr-btn{flex:none}
+@media (max-width:420px){.ne-top{gap:6px;padding-left:8px;padding-right:8px}.ne-back{font-size:15px;padding-right:0}.ne-done{padding-left:4px}.appr-btn{padding:7px 11px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -554,6 +561,7 @@ const ICON = {
   compose:'<path d="M12 4.5H6.5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V12"/><path d="M17.5 3.5l3 3-8 8H9.5v-3z"/>',
   trash:'<path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/>',
   search:'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',
+  crown:'<path d="M4 8l4 4 4-6 4 6 4-4-1.5 10h-13z"/>',
   user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1-3.6 3.8-5.5 7-5.5s6 1.9 7 5.5"/>',
   grid:'<rect x="4.5" y="4.5" width="6" height="6" rx="1.8"/><rect x="13.5" y="4.5" width="6" height="6" rx="1.8"/><rect x="4.5" y="13.5" width="6" height="6" rx="1.8"/><rect x="13.5" y="13.5" width="6" height="6" rx="1.8"/>',
   list:'<path d="M9 7h11M9 12h11M9 17h11"/><circle cx="5" cy="7" r=".9" fill="currentColor"/><circle cx="5" cy="12" r=".9" fill="currentColor"/><circle cx="5" cy="17" r=".9" fill="currentColor"/>',
@@ -672,10 +680,11 @@ const HUBS = [
   { id:"tasks", t:"Задачи", i:"list" }, { id:"shop", t:"Покупки", i:"bag" },
   { id:"ideas", t:"Банк идей", i:"spark" }, { id:"fun", t:"Развлечения", i:"dice" } ];
 const hubName = h => (HUBS.find(x => x.id === h) || {}).t || "";
-const hubOf = s => s.kind === "tasks" ? "tasks" : s.kind === "shop" ? "shop" : s.kind === "notes" ? "ideas"
+const hubOf = s => s.kind === "concept" ? "concept" : s.kind === "tasks" ? "tasks" : s.kind === "shop" ? "shop" : s.kind === "notes" ? "ideas"
   : (s.hub === "fun" || s.hub === "ideas") ? s.hub
   : s.kind === "plan" || /игр|задан|квест|развлеч|конкурс/i.test(s.title || "") ? "fun" : "ideas";
 const hubSecs = h => secs().filter(([, s]) => hubOf(s) === h);
+const realSecs = () => secs().filter(([, s]) => s.kind !== "concept");
 const okHubs = kind => kind === "shop" ? ["shop"] : kind === "tasks" ? ["tasks"] : kind === "notes" ? ["ideas"] : ["ideas", "fun"];
 S.tab = {}; S.f = "all";
 function curSec(h) { const list = hubSecs(h); const t = S.tab[h]; return list.some(([id]) => id === t) ? t : (list[0] || [])[0] || ""; }
@@ -684,15 +693,15 @@ function renderTop(home) {
   const left = home
     ? `<span></span>`
     : `<a class="circ" href="${href(route().startsWith("who:") ? "team" : "")}" aria-label="Назад">${ic("back")}</a>`;
-  $("#top").innerHTML = `${left}<a class="bpill" href="${href("")}"><i>${ic("gift")}</i><span><b>Катя</b><small>${esc(meta("date"))}</small></span></a>
+  $("#top").innerHTML = `${left}<a class="bpill" href="${href("")}"><i>${ic("gift")}</i><span><b>${esc(meta("title"))}</b><small>${esc(meta("date"))}</small></span></a>
     <a class="circ" href="${href("team")}" aria-label="Команда и настройки">${ic("grid")}</a>`;
 }
 function renderNav(r) {
-  const on = x => x === "home" ? !r : (r === "team" || r.startsWith("who:"));
+  const on = x => x === "home" ? !r : r === "concept";
   const tab = (p, k, i, t) => `<a href="${href(p)}" class="${on(k) ? "on" : ""}" ${on(k) ? 'aria-current="page"' : ""}>${ic(i)}<span>${t}</span></a>`;
   $("#nav").innerHTML = tab("", "home", "home", "Главная")
     + `<button class="plus" data-act="sheet" aria-label="Добавить">${ic("plus")}</button>`
-    + tab("team", "team", "people", "Команда");
+    + tab("concept", "concept", "crown", "Концепция");
 }
 const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
 let colAdd = null;
@@ -787,9 +796,9 @@ function homeScreen() {
       <div class="ht-f"><div><b>${n}</b><small>${w}</small></div><i class="arr">${ic("arr")}</i></div></a>`; };
   return `<div class="hbg">${photo ? `<img src="${photo}" alt="">` : ""}</div>
     <section class="home">
-      <h1>День рождения<br>Кати</h1>
+      <h1>${esc(meta("title"))}</h1>
       <div class="hw">
-        <a class="wbar glassw" href="${href(plan || "")}"><b class="gtx">${d > 0 ? d : d === 0 ? "0" : "—"}</b><span>${d > 0 ? plural(d, "день", "дня", "дней") + "<br>до праздника" : d === 0 ? "праздник<br>сегодня" : "праздник<br>прошёл"}</span><i class="icirc">${ic("cal")}</i></a>
+        <div class="wbar glassw"><b class="gtx">${d > 0 ? d : d === 0 ? "0" : "—"}</b><span>${d > 0 ? plural(d, "день", "дня", "дней") + "<br>до праздника" : d === 0 ? "праздник<br>сегодня" : "праздник<br>прошёл"}</span><i class="icirc">${ic("cal")}</i></div>
         <div class="htiles">${HUBS.map((h, i) => tile(h.id, i)).join("")}</div>
       </div>
     </section>`;
@@ -864,6 +873,24 @@ function notesScreen(h, sid, tabs) {
       : `<div class="empty">${total ? "Ничего не нашлось" : "Пока нет заметок<br>Нажми на карандаш справа, чтобы записать первую идею"}</div>`}
   </section>`;
 }
+const conceptSec = () => firstOf("concept");
+function conceptScreen() {
+  const sid = conceptSec();
+  const all = sid ? secItems(sid).sort((a, b) => (b[1].st | 0) - (a[1].st | 0) || (b[1].u || 0) - (a[1].u || 0)) : [];
+  const ok = all.filter(([, it]) => (it.st | 0) === 1);
+  const row = ([id, it]) => { const th = (it.imgs || [])[0];
+    return `<button class="nrow ${(it.st | 0) === 1 ? "appr" : ""}" data-act="note" data-nid="${esc(id)}"><div><b>${esc(it.text) || "Новая концепция"}</b><small>${(it.st | 0) === 1 ? `<span class="gtx" style="font-weight:700">Утверждена</span>` : `<span>${ndate(it.u)}</span>`}${esc(firstLine(it.body)) || ((it.imgs || []).length ? "фото" : "нет текста")}</small></div>${th ? `<img src="${esc(th.th)}" alt="">` : ""}</button>`; };
+  return `<div class="ptitle phead"><h2>Концепция</h2><button class="ne-ic" data-act="newconcept" aria-label="Добавить вариант">${ic("compose")}</button></div>
+    ${all.length ? `<p class="csub">${ok.length ? "Концепция вечера утверждена" : "Выберите вариант и нажмите «Утвердить» внутри"}</p><div class="card nlist">${all.map(row).join("")}</div>`
+      : `<div class="empty">Здесь будет концепция всего мероприятия<br>Добавь вариант карандашом справа, а когда выберете, нажми «Утвердить»</div>`}`;
+}
+function newConcept() {
+  let sid = conceptSec();
+  if (!sid) { sid = newId("s"); api.set("sections", sid, { title: "Концепция", kind: "concept", ord: 0, hint: "" }); }
+  const id = newId("n");
+  api.set("items", id, { sec: sid, text: "", body: "", imgs: [], st: 0, ord: Date.now() });
+  openNote(id, true);
+}
 function hubScreen(h) {
   const list = hubSecs(h); const sid = curSec(h);
   const head = `<div class="ptitle"><h2>${hubName(h)}</h2></div>`;
@@ -888,7 +915,7 @@ function hubScreen(h) {
     </section>`;
 }
 function personScreen(w) {
-  const groups = secs().filter(([, s]) => s.kind !== "notes").map(([sid, s]) => {
+  const groups = secs().filter(([, s]) => s.kind !== "notes" && s.kind !== "concept").map(([sid, s]) => {
     const rows = sortRows(s.kind, secItems(sid).filter(([, it]) => matchWho(it, w)));
     if (!rows.length) return "";
     return `<div class="grp-h"><span>${esc(label(s))}</span><a href="${href(sid)}">открыть</a></div>
@@ -905,7 +932,7 @@ function teamScreen() {
     <div class="card form" data-col="meta" data-id="settings">${f.map(([k, l]) =>
       `<label class="frow"><span>${l}</span><input type="text" id="m-${k}" data-f="${k}" value="${esc(val("meta", "settings", k, meta(k)))}" placeholder="—" autocomplete="off"></label>`).join("")}</div>
     <div class="sec-h">Разделы</div>
-    <div class="card form">${secs().map(([sid, s]) => `<div class="frow" data-col="sections" data-id="${esc(sid)}">
+    <div class="card form">${realSecs().map(([sid, s]) => `<div class="frow" data-col="sections" data-id="${esc(sid)}">
       <input type="text" data-f="title" value="${esc(val("sections", sid, "title", s.title))}" aria-label="Название раздела">
       <button class="pill set" data-menu="hub" aria-haspopup="listbox" aria-label="Где показывать">${hubName(hubOf(s))}</button>
       <button class="x" data-act="delsec" aria-label="Удалить раздел">×</button></div>`).join("")}</div>
@@ -930,7 +957,7 @@ function render() {
   else if (a && (a.id === "ns-title" || a.id === "nq")) keep = { nid: a.id, v: a.value, s: a.selectionStart };
   let r = route(); let hub = "";
   if (r.startsWith("h:")) hub = r.slice(2);
-  else if (r && r !== "team" && !r.startsWith("who:")) {
+  else if (r && r !== "team" && r !== "concept" && !r.startsWith("who:")) {
     const s = S.sections.get(r);
     if (s) { hub = hubOf(s); S.tab[hub] = r; } else if (S.got.s) r = "";
   }
@@ -943,6 +970,7 @@ function render() {
   if (!S.got.s && !S.sections.size) sc.innerHTML = '<div class="loading">Загружаем план вечера…</div>';
   else if (!r) sc.innerHTML = homeScreen();
   else if (r === "team") sc.innerHTML = teamScreen();
+  else if (r === "concept") sc.innerHTML = conceptScreen();
   else if (r.startsWith("who:")) sc.innerHTML = personScreen(r.slice(4));
   else sc.innerHTML = hubScreen(hub);
   sc.querySelectorAll("textarea").forEach(autosize);
@@ -1120,7 +1148,8 @@ function newNote(sid) {
 }
 function openNote(id, fresh) {
   const it = S.items.get(id); if (!it) return; noteId = id;
-  $("#nedit").innerHTML = `<div class="ne-top"><button class="ne-back" data-act="note-close">${ic("back")}Банк идей</button><span class="sp"></span>
+  $("#nedit").innerHTML = `<div class="ne-top"><button class="ne-back" data-act="note-close">${ic("back")}${S.sections.get(it.sec)?.kind === "concept" ? "Концепция" : "Банк идей"}</button><span class="sp"></span>
+      ${S.sections.get(it.sec)?.kind === "concept" ? `<button class="appr-btn ${(it.st | 0) === 1 ? "on" : ""}" data-act="approve">${(it.st | 0) === 1 ? "Утверждена" : "Утвердить"}</button>` : ""}
       <label class="ne-ic" aria-label="Добавить фото">${ic("photo")}<input type="file" accept="image/*" multiple data-photos></label>
       <button class="ne-ic" data-act="note-del" aria-label="Удалить заметку">${ic("trash")}</button>
       <button class="ne-done" data-act="note-close">Готово</button></div>
@@ -1158,7 +1187,8 @@ $("#lb").addEventListener("click", () => { $("#lb").hidden = true; $("#lb img").
 /* ---------- quick add sheet ---------- */
 let qaSec = "", qaSt = 0;
 function openSheet(pref, st) {
-  const r = route(); const list = secs(); qaSt = st | 0;
+  const r = route(); const list = realSecs(); qaSt = st | 0;
+  if (r === "concept") { newConcept(); return; }
   if (!list.length) { location.hash = href("team"); return; }
   const here = r.startsWith("h:") ? curSec(r.slice(2)) : r;
   qaSec = S.sections.has(pref) ? pref : S.sections.has(here) ? here : (list[0] || [])[0];
@@ -1166,7 +1196,7 @@ function openSheet(pref, st) {
   drawSheet(); $("#sheet").hidden = false; setTimeout(() => $("#qa-text").focus(), 50);
 }
 function drawSheet() {
-  $("#qa-secs").innerHTML = secs().map(([id, s]) => `<button type="button" class="chip" data-act="qa-sec" data-sec="${esc(id)}" aria-pressed="${id === qaSec}">${esc(label(s))}</button>`).join("");
+  $("#qa-secs").innerHTML = realSecs().map(([id, s]) => `<button type="button" class="chip" data-act="qa-sec" data-sec="${esc(id)}" aria-pressed="${id === qaSec}">${esc(label(s))}</button>`).join("");
 }
 const closeSheet = () => { $("#sheet").hidden = true; $("#qa-text").value = ""; qaSt = 0; };
 $("#qa").addEventListener("submit", e => {
@@ -1193,6 +1223,12 @@ document.addEventListener("click", e => {
   if (act === "nskind") { nsKind = b.dataset.k; b.parentElement.querySelectorAll(".chip").forEach(c => { const on = c === b; c.setAttribute("aria-pressed", on); c.setAttribute("aria-checked", on); }); return; }
   if (act === "who") { S.who = b.dataset.who; render(); return; }
   if (act === "newnote") { newNote(b.dataset.sec); return; }
+  if (act === "newconcept") { newConcept(); return; }
+  if (act === "approve") {
+    const it = S.items.get(noteId); if (!it) return; const on = (it.st | 0) !== 1;
+    if (on) secItems(it.sec).forEach(([id, x]) => { if ((x.st | 0) === 1) api.update("items", id, { st: 0 }); });
+    api.update("items", noteId, { st: on ? 1 : 0 });
+    const bt = b; bt.classList.toggle("on", on); bt.textContent = on ? "Утверждена" : "Утвердить"; toast(on ? "Концепция утверждена" : "Утверждение снято"); return; }
   if (act === "note") { openNote(b.dataset.nid); return; }
   if (act === "note-close") { closeNote(); return; }
   if (act === "note-del") { confirmClick(b, "?", () => { const id = noteId; const ph = ((S.items.get(id) || {}).imgs || []).map(p => p.id); noteId = ""; $("#nedit").hidden = true; document.body.style.overflow = ""; api.del("items", id); (async () => { for (const pid of ph) await imgStore(pid, null); })(); }); return; }
