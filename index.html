@@ -401,6 +401,51 @@ body{position:relative}
 .item .lnk input::placeholder{color:var(--dim)}
 .lnk a{flex:none;display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--fg);text-decoration:none;padding:3px 10px;border-radius:999px;background:rgba(201,162,39,.16);border:1px solid rgba(232,199,102,.3)}
 .lnk a svg.i{width:12px;height:12px;color:var(--glow)}
+
+/* notes, like iPhone Notes */
+.phead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.phead .ne-ic{flex:none}
+.nsearch{display:flex;align-items:center;gap:8px;margin-top:6px;padding:0 14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--gl-line);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.nsearch svg.i{width:17px;height:17px;color:var(--dim)}
+.nsearch input{flex:1;min-width:0;background:none;border:0;outline:none;padding:11px 0;font-size:15px}
+.nlist{margin-top:14px;padding:0;overflow:hidden;border-radius:20px}
+.nrow{display:flex;gap:12px;align-items:center;width:100%;padding:13px 16px;border:0;border-top:1px solid rgba(255,255,255,.08);background:none;text-align:left;color:var(--fg)}
+.nrow:first-child{border-top:0}
+.nrow:hover{background:rgba(255,255,255,.04)}
+.nrow>div{flex:1;min-width:0}
+.nrow b{display:block;font-size:15.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nrow small{display:block;margin-top:2px;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nrow small span{color:rgba(242,237,226,.8);margin-right:8px}
+.nrow img{flex:none;width:46px;height:46px;border-radius:10px;object-fit:cover}
+.ncount{margin:10px 4px 0;font-size:12.5px;color:var(--dim)}
+.ne-ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:var(--glow);background:rgba(255,255,255,.08);border:1px solid var(--gl-line);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:0;position:relative;overflow:hidden}
+.ne-ic svg.i{width:20px;height:20px}
+.ne-ic input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.nedit{position:fixed;inset:0;z-index:55;display:flex;flex-direction:column;background:rgba(6,6,6,.62);-webkit-backdrop-filter:blur(30px) saturate(1.2);backdrop-filter:blur(30px) saturate(1.2)}
+.ne-top{display:flex;align-items:center;gap:8px;width:100%;max-width:720px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 8px}
+.ne-back{display:flex;align-items:center;gap:2px;border:0;background:none;color:var(--glow);font-size:16px;padding:8px 4px}
+.ne-back svg.i{width:22px;height:22px}
+.ne-top .sp{flex:1}
+.ne-done{border:0;background:none;color:var(--glow);font-weight:700;font-size:16px;padding:8px 6px 8px 10px}
+.ne-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;width:100%;max-width:720px;margin:0 auto;padding:4px 22px calc(40px + env(safe-area-inset-bottom,0px))}
+.ne-date{text-align:center;font-size:12.5px;color:var(--dim);margin:2px 0 16px}
+.ne-body textarea{display:block;width:100%;padding:0;border:0;outline:none;background:none;resize:none;overflow:hidden;color:var(--fg)}
+.ne-body .ne-title{font-size:26px;font-weight:700;line-height:1.25;letter-spacing:-.01em}
+.ne-body .ne-text{margin-top:10px;font-size:16.5px;line-height:1.55;min-height:120px}
+.ne-body textarea::placeholder{color:var(--dim)}
+.ne-imgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+@media (min-width:600px){.ne-imgs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.ne-imgs figure{position:relative;margin:0;aspect-ratio:1;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.06);border:1px solid var(--gl-line)}
+.ne-imgs figure img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+.ne-imgs .rm{position:absolute;top:7px;right:7px;width:30px;height:30px;border-radius:50%;border:0;padding:0;background:rgba(0,0,0,.55);color:#fff;font-size:17px;line-height:1;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ne-imgs .rm.arm{background:var(--danger)}
+.ne-imgs .up{display:grid;place-items:center;font-size:12.5px;color:var(--muted)}
+.ne-addph{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:1;border-radius:16px;border:1px dashed rgba(255,255,255,.2);color:var(--muted);font-size:13px;overflow:hidden}
+.ne-addph svg.i{color:var(--glow)}
+.ne-addph input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.lightbox{position:fixed;inset:0;z-index:75;display:grid;place-items:center;background:rgba(0,0,0,.92)}
+.lightbox img{max-width:96vw;max-height:86vh;border-radius:14px}
+.lightbox p{position:absolute;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:var(--muted);font-size:13px;margin:0}
 </style>
 </head>
 <body>
@@ -426,6 +471,8 @@ body{position:relative}
 <div class="sheet-bg" id="ts" hidden>
   <div class="sheet" id="ts-in" role="dialog" aria-modal="true" aria-label="Задача"></div>
 </div>
+<div class="nedit" id="nedit" hidden></div>
+<div class="lightbox" id="lb" hidden><img alt=""><p>Нажми, чтобы закрыть</p></div>
 <div class="menu" id="menu" role="listbox" hidden></div>
 <div class="toast" id="toast" hidden></div>
 
@@ -438,7 +485,7 @@ let api = null;
 const STATUS = ["идея","берём","готово","мимо"];
 const TSTATUS = ["сделать","в работе","готово"];
 const stList = kind => kind === "tasks" ? TSTATUS : STATUS;
-const KINDNAME = { shop:"Покупки", ideas:"Идеи", plan:"План по времени", tasks:"Задачи" };
+const KINDNAME = { shop:"Покупки", ideas:"Идеи", plan:"План по времени", tasks:"Задачи", notes:"Банк идей" };
 const DEFAULT_META = { title:"День рождения Кати", date:"29 декабря", place:"Загородный дом", guests:"", currency:"₽", team:"Вика, Люба, Данил" };
 
 const $ = s => document.querySelector(s);
@@ -465,6 +512,10 @@ const ICON = {
   arr:'<path d="M5 12h14M13 6l6 6-6 6"/>',
   chain:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
   out:'<path d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4"/>',
+  photo:'<rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><circle cx="9" cy="10.5" r="1.6"/><path d="M20.5 15.5l-5-4.5-8.5 7.5"/>',
+  compose:'<path d="M12 4.5H6.5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V12"/><path d="M17.5 3.5l3 3-8 8H9.5v-3z"/>',
+  trash:'<path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/>',
+  search:'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',
   user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1-3.6 3.8-5.5 7-5.5s6 1.9 7 5.5"/>',
   grid:'<rect x="4.5" y="4.5" width="6" height="6" rx="1.8"/><rect x="13.5" y="4.5" width="6" height="6" rx="1.8"/><rect x="4.5" y="13.5" width="6" height="6" rx="1.8"/><rect x="13.5" y="13.5" width="6" height="6" rx="1.8"/>',
   list:'<path d="M9 7h11M9 12h11M9 17h11"/><circle cx="5" cy="7" r=".9" fill="currentColor"/><circle cx="5" cy="12" r=".9" fill="currentColor"/><circle cx="5" cy="17" r=".9" fill="currentColor"/>',
@@ -583,11 +634,11 @@ const HUBS = [
   { id:"tasks", t:"Задачи", i:"list" }, { id:"shop", t:"Покупки", i:"bag" },
   { id:"ideas", t:"Банк идей", i:"spark" }, { id:"fun", t:"Развлечения", i:"dice" } ];
 const hubName = h => (HUBS.find(x => x.id === h) || {}).t || "";
-const hubOf = s => s.kind === "tasks" ? "tasks" : s.kind === "shop" ? "shop"
+const hubOf = s => s.kind === "tasks" ? "tasks" : s.kind === "shop" ? "shop" : s.kind === "notes" ? "ideas"
   : (s.hub === "fun" || s.hub === "ideas") ? s.hub
   : s.kind === "plan" || /игр|задан|квест|развлеч|конкурс/i.test(s.title || "") ? "fun" : "ideas";
 const hubSecs = h => secs().filter(([, s]) => hubOf(s) === h);
-const okHubs = kind => kind === "shop" ? ["shop"] : kind === "tasks" ? ["tasks"] : ["ideas", "fun"];
+const okHubs = kind => kind === "shop" ? ["shop"] : kind === "tasks" ? ["tasks"] : kind === "notes" ? ["ideas"] : ["ideas", "fun"];
 S.tab = {}; S.f = "all";
 function curSec(h) { const list = hubSecs(h); const t = S.tab[h]; return list.some(([id]) => id === t) ? t : (list[0] || [])[0] || ""; }
 
@@ -629,6 +680,7 @@ function dragStart() {
   d.dx = d.x - r.left; d.dy = d.y - r.top;
   d.g = d.el.cloneNode(true); d.g.classList.add("ghost"); d.g.style.width = r.width + "px"; document.body.appendChild(d.g);
   d.el.classList.add("ph"); document.body.classList.add("drag-on"); closeMenu();
+  const bd = d.el.closest(".board"); if (bd) bd.style.scrollSnapType = "none";
   if (navigator.vibrate) navigator.vibrate(12);
   dragMove(); d.raf = requestAnimationFrame(autoScroll);
 }
@@ -686,8 +738,8 @@ function hubCount(h) {
   if (h === "tasks") { const n = items.filter(i => (i.st | 0) < 2).length; return [n, plural(n, "задача", "задачи", "задач")]; }
   if (h === "shop") { const n = items.filter(i => !i.done).length; return [n, plural(n, "покупка", "покупки", "покупок")]; }
   const kindOf = i => S.sections.get(i.sec).kind;
-  const n = items.filter(i => kindOf(i) === "plan" || (i.st | 0) !== 3).length;
-  return [n, h === "ideas" ? plural(n, "идея", "идеи", "идей") : plural(n, "пункт", "пункта", "пунктов")];
+  const n = items.filter(i => kindOf(i) === "plan" || kindOf(i) === "notes" || (i.st | 0) !== 3).length;
+  return [n, h === "ideas" ? plural(n, "заметка", "заметки", "заметок") : plural(n, "пункт", "пункта", "пунктов")];
 }
 function homeScreen() {
   const d = daysLeft(); const plan = firstOf("plan");
@@ -753,6 +805,27 @@ function passF(kind, it) {
   if (kind === "shop") return f === "done" ? !!it.done : !it.done;
   const st = it.st | 0; return f === "take" ? st === 1 || st === 2 : f === "idea" ? st === 0 : st === 3;
 }
+let nq = "";
+const ndate = u => { const d = new Date(u || 0), n = new Date();
+  if (d.toDateString() === n.toDateString()) return d.toLocaleTimeString("ru-RU", { hour:"2-digit", minute:"2-digit" });
+  const y = new Date(n); y.setDate(n.getDate() - 1); if (d.toDateString() === y.toDateString()) return "вчера";
+  return d.toLocaleDateString("ru-RU", { day:"numeric", month:"long" }); };
+const firstLine = t => String(t || "").split("\n").map(x => x.trim()).find(Boolean) || "";
+function notesScreen(h, sid, tabs) {
+  const q = nq.trim().toLowerCase();
+  const rows = secItems(sid).map(([id, it]) => [id, it]).sort((a, b) => (b[1].u || 0) - (a[1].u || 0))
+    .filter(([, it]) => !q || (String(it.text) + " " + String(it.body || "")).toLowerCase().includes(q));
+  const list = rows.map(([id, it]) => { const th = (it.imgs || [])[0];
+    return `<button class="nrow" data-act="note" data-nid="${esc(id)}"><div><b>${esc(it.text) || "Новая заметка"}</b><small><span>${ndate(it.u)}</span>${esc(firstLine(it.body)) || ((it.imgs || []).length ? "фото" : "нет текста")}</small></div>${th ? `<img src="${esc(th.th)}" alt="">` : ""}</button>`; }).join("");
+  const total = secItems(sid).length;
+  return `<section data-col="sections" data-id="${esc(sid)}">
+    <div class="ptitle phead"><h2>${hubName(h)}</h2><button class="ne-ic" data-act="newnote" data-sec="${esc(sid)}" aria-label="Новая заметка">${ic("compose")}</button></div>
+    ${tabs}
+    ${total ? `<label class="nsearch">${ic("search")}<input type="search" id="nq" value="${esc(nq)}" placeholder="Поиск" autocomplete="off" aria-label="Поиск по заметкам"></label>` : ""}
+    ${rows.length ? `<div class="card nlist">${list}</div><p class="ncount">${total} ${plural(total, "заметка", "заметки", "заметок")}</p>`
+      : `<div class="empty">${total ? "Ничего не нашлось" : "Пока нет заметок<br>Нажми на карандаш справа, чтобы записать первую идею"}</div>`}
+  </section>`;
+}
 function hubScreen(h) {
   const list = hubSecs(h); const sid = curSec(h);
   const head = `<div class="ptitle"><h2>${hubName(h)}</h2></div>`;
@@ -768,6 +841,7 @@ function hubScreen(h) {
   }
   let filt = "";
   if (FILTERS[s.kind]) filt = `<div class="chips">${FILTERS[s.kind].map(([k, l]) => `<button class="chip" data-act="filt" data-k="${k}" aria-pressed="${S.f === k}">${l}</button>`).join("")}</div>`;
+  if (s.kind === "notes") return notesScreen(h, sid, tabs);
   const shown = sortRows(s.kind, all.filter(([, it]) => passF(s.kind, it)));
   const body = s.kind === "tasks" ? `<div style="margin-top:8px">${board(sid)}</div>`
     : `<div class="items">${shown.map(([id, it]) => itemRow(s.kind, id, it)).join("") || `<div class="empty">${all.length ? "Здесь ничего не подходит под фильтр" : "Пока пусто, добавь первый пункт"}</div>`}</div>`;
@@ -776,7 +850,7 @@ function hubScreen(h) {
     </section>`;
 }
 function personScreen(w) {
-  const groups = secs().map(([sid, s]) => {
+  const groups = secs().filter(([, s]) => s.kind !== "notes").map(([sid, s]) => {
     const rows = sortRows(s.kind, secItems(sid).filter(([, it]) => matchWho(it, w)));
     if (!rows.length) return "";
     return `<div class="grp-h"><span>${esc(label(s))}</span><a href="${href(sid)}">открыть</a></div>
@@ -804,7 +878,7 @@ function teamScreen() {
         `<button type="button" class="chip" role="radio" data-act="nskind" data-k="${h.id}" aria-pressed="${nsKind === h.id}" aria-checked="${nsKind === h.id}">${h.t}</button>`).join("")}</div>
       <button type="submit" class="btn">Добавить раздел</button>
     </form>
-    <p class="note">Страница только для команды, не открывай её при Кате<br>Правки сохраняются сами и видны остальным через несколько секунд<br><span id="sync">${lastSync ? "Сохранено для всех в " + lastSync : ""}</span></p>`;
+    <p class="note"><span id="sync">${lastSync ? "Сохранено для всех в " + lastSync : ""}</span></p>`;
 }
 
 function render() {
@@ -815,7 +889,7 @@ function render() {
     const host = a.closest("[data-id]");
     keep = { id: host.dataset.id, f: a.dataset.f, s: a.selectionStart, e: a.selectionEnd };
   } else if (a && a.dataset && a.dataset.add) keep = { add: a.dataset.add, v: a.value };
-  else if (a && a.id === "ns-title") keep = { nid: a.id, v: a.value };
+  else if (a && (a.id === "ns-title" || a.id === "nq")) keep = { nid: a.id, v: a.value, s: a.selectionStart };
   let r = route(); let hub = "";
   if (r.startsWith("h:")) hub = r.slice(2);
   else if (r && r !== "team" && !r.startsWith("who:")) {
@@ -827,20 +901,23 @@ function render() {
   document.body.classList.toggle("is-home", !r);
   renderTop(!r); renderNav(r);
   const sc = $("#screen");
+  const bl = (sc.querySelector(".board") || {}).scrollLeft || 0;
   if (!S.got.s && !S.sections.size) sc.innerHTML = '<div class="loading">Загружаем план вечера…</div>';
   else if (!r) sc.innerHTML = homeScreen();
   else if (r === "team") sc.innerHTML = teamScreen();
   else if (r.startsWith("who:")) sc.innerHTML = personScreen(r.slice(4));
   else sc.innerHTML = hubScreen(hub);
   sc.querySelectorAll("textarea").forEach(autosize);
+  const nb = sc.querySelector(".board"); if (nb && bl) { nb.style.scrollSnapType = "none"; nb.scrollLeft = bl; requestAnimationFrame(() => nb.style.scrollSnapType = ""); }
   if (!$("#ts").hidden) drawTaskCtl();
+  if (noteId) { if (!S.items.has(noteId)) { $("#nedit").hidden = true; noteId = ""; document.body.style.overflow = ""; } else if (!uploading) drawNoteImgs(); }
   if (keep) {
     const el = keep.add ? document.querySelector(`[data-add="${CSS.escape(keep.add)}"]`)
       : keep.nid ? document.getElementById(keep.nid)
       : document.querySelector(`[data-id="${CSS.escape(keep.id)}"] [data-f="${keep.f}"]`);
     if (el) {
       el.focus();
-      if (keep.add || keep.nid) el.value = keep.v;
+      if (keep.add || keep.nid) { el.value = keep.v; if (keep.nid === "nq") try { el.setSelectionRange(keep.s, keep.s); } catch (e) {} }
       else try { el.setSelectionRange(keep.s, keep.e); } catch (e) {}
     }
   }
@@ -858,7 +935,8 @@ function flush(col, id, f) {
   api.update(col, id, { [f]: v });
 }
 document.addEventListener("input", e => {
-  const el = e.target; if (!el.dataset || !el.dataset.f || el.tagName === "SELECT") return;
+  const el = e.target;
+  if (el.id === "nq") { nq = el.value; render(); return; } if (!el.dataset || !el.dataset.f || el.tagName === "SELECT") return;
   const t = target(el); if (!t) return;
   if (el.tagName === "TEXTAREA") autosize(el);
   const k = t.col + "|" + t.id + "|" + el.dataset.f;
@@ -879,6 +957,7 @@ function addTo(sid, text, st) {
   const d = { sec: sid, text, note: "", who: w !== "all" && w !== "none" ? w : "", ord: Date.now() };
   if (kind === "shop") Object.assign(d, { qty: "", price: "", done: false });
   else if (kind === "plan") d.time = "";
+  else if (kind === "notes") Object.assign(d, { body: "", imgs: [] });
   else d.st = st | 0;
   api.set("items", newId("i"), d);
   return true;
@@ -946,6 +1025,98 @@ function drawTaskCtl() {
 function closeTask() { const a = document.activeElement; if (a && a.closest && a.closest("#ts")) a.blur(); $("#ts").hidden = true; tsId = ""; }
 $("#ts").addEventListener("click", e => { if (e.target.id === "ts") closeTask(); });
 
+/* ---------- note editor with photos ---------- */
+let noteId = "";
+const IMK = () => KEYM + "im";
+const IMG = {}; let imgFetch = null;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function imgGet(id) {
+  if (IMG[id]) return IMG[id];
+  if (!imgFetch) imgFetch = rpc("el_get", { k: IMK() }).then(r => { Object.assign(IMG, (r && r.imgs) || {}); }).catch(() => {}).finally(() => { imgFetch = null; });
+  await imgFetch; return IMG[id];
+}
+async function imgStore(id, data) {
+  for (let i = 0; i < 4; i++) {
+    try {
+      const cur = (await rpc("el_get", { k: IMK() })) || {};
+      const imgs = { ...(cur.imgs || {}) };
+      if (data) imgs[id] = data; else delete imgs[id];
+      await rpc("el_put", { p_k: IMK(), p_d: { imgs } });
+      const chk = await rpc("el_get", { k: IMK() });
+      if (!!(chk && chk.imgs && chk.imgs[id]) === !!data) { if (data) IMG[id] = data; return true; }
+    } catch (e) {}
+    await sleep(700 + i * 600);
+  }
+  return false;
+}
+async function shrink(file, max, q) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = new Image(); img.src = url; await img.decode();
+    const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement("canvas"); c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    return c.toDataURL("image/jpeg", q);
+  } finally { URL.revokeObjectURL(url); }
+}
+let uploading = 0;
+async function addPhotos(nid, files) {
+  for (const f of files) {
+    if (!/^image\//.test(f.type) && !/\.(heic|heif|jpe?g|png|webp)$/i.test(f.name)) continue;
+    uploading++; drawNoteImgs();
+    try {
+      const [th, full] = await Promise.all([shrink(f, 320, .62), shrink(f, 1400, .74)]);
+      const id = newId("p");
+      const ok = await imgStore(id, full);
+      if (!ok) { toast("Фото не загрузилось, проверь интернет"); continue; }
+      const it = S.items.get(nid); if (!it) continue;
+      api.update("items", nid, { imgs: [...(it.imgs || []), { id, th }] });
+    } catch (e) { toast("Это фото не получилось прочитать"); }
+    finally { uploading--; drawNoteImgs(); }
+  }
+}
+function newNote(sid) {
+  const id = newId("n");
+  api.set("items", id, { sec: sid, text: "", body: "", imgs: [], ord: Date.now() });
+  openNote(id, true);
+}
+function openNote(id, fresh) {
+  const it = S.items.get(id); if (!it) return; noteId = id;
+  $("#nedit").innerHTML = `<div class="ne-top"><button class="ne-back" data-act="note-close">${ic("back")}Банк идей</button><span class="sp"></span>
+      <label class="ne-ic" aria-label="Добавить фото">${ic("photo")}<input type="file" accept="image/*" multiple data-photos></label>
+      <button class="ne-ic" data-act="note-del" aria-label="Удалить заметку">${ic("trash")}</button>
+      <button class="ne-done" data-act="note-close">Готово</button></div>
+    <div class="ne-body" data-col="items" data-id="${esc(id)}">
+      <p class="ne-date">${new Date(it.u || Date.now()).toLocaleString("ru-RU", { day:"numeric", month:"long", hour:"2-digit", minute:"2-digit" })}</p>
+      <textarea rows="1" class="ne-title" data-f="text" placeholder="Заголовок" aria-label="Заголовок">${esc(it.text)}</textarea>
+      <textarea rows="4" class="ne-text" data-f="body" placeholder="Пиши идею, ссылки, детали…" aria-label="Текст заметки">${esc(it.body || "")}</textarea>
+      <div class="ne-imgs" id="ne-imgs"></div>
+    </div>`;
+  $("#nedit").hidden = false; document.body.style.overflow = "hidden";
+  drawNoteImgs();
+  $("#nedit").querySelectorAll("textarea").forEach(autosize);
+  if (fresh) setTimeout(() => $(".ne-title").focus(), 60);
+}
+function drawNoteImgs() {
+  const box = $("#ne-imgs"); if (!box || !noteId) return;
+  const it = S.items.get(noteId); if (!it) return;
+  box.innerHTML = (it.imgs || []).map(p => `<figure data-pid="${esc(p.id)}"><img src="${esc(IMG[p.id] || p.th)}" alt="" data-act="zoom" data-pid="${esc(p.id)}"><button class="rm" data-act="rmph" data-pid="${esc(p.id)}" aria-label="Убрать фото">×</button></figure>`).join("")
+    + Array.from({ length: uploading }, () => `<figure class="up">Загружаю…</figure>`).join("")
+    + `<label class="ne-addph">${ic("photo")}Добавить фото<input type="file" accept="image/*" multiple data-photos></label>`;
+  (it.imgs || []).forEach(p => { if (!IMG[p.id]) imgGet(p.id).then(d => { const im = box.querySelector(`figure[data-pid="${CSS.escape(p.id)}"] img`); if (d && im) im.src = d; }); });
+}
+function closeNote() {
+  const id = noteId; if (!id) return;
+  const a = document.activeElement; if (a && a.closest && a.closest("#nedit")) a.blur();
+  $("#nedit").hidden = true; $("#nedit").innerHTML = ""; noteId = ""; document.body.style.overflow = "";
+  setTimeout(() => { const it = S.items.get(id); if (it && !String(it.text).trim() && !String(it.body || "").trim() && !(it.imgs || []).length && !uploading) api.del("items", id); }, 700);
+}
+document.addEventListener("change", e => {
+  const el = e.target; if (!el.matches || !el.matches("[data-photos]") || !noteId) return;
+  const files = [...(el.files || [])]; el.value = ""; if (files.length) addPhotos(noteId, files);
+});
+$("#lb").addEventListener("click", () => { $("#lb").hidden = true; $("#lb img").src = ""; });
+
 /* ---------- quick add sheet ---------- */
 let qaSec = "", qaSt = 0;
 function openSheet(pref, st) {
@@ -953,6 +1124,7 @@ function openSheet(pref, st) {
   if (!list.length) { location.hash = href("team"); return; }
   const here = r.startsWith("h:") ? curSec(r.slice(2)) : r;
   qaSec = S.sections.has(pref) ? pref : S.sections.has(here) ? here : (list[0] || [])[0];
+  if (!pref && S.sections.get(qaSec)?.kind === "notes") { newNote(qaSec); return; }
   drawSheet(); $("#sheet").hidden = false; setTimeout(() => $("#qa-text").focus(), 50);
 }
 function drawSheet() {
@@ -982,6 +1154,12 @@ document.addEventListener("click", e => {
   if (act === "ts-del") { confirmClick(b, "Точно удалить?", () => { const id = tsId; closeTask(); api.del("items", id); }); return; }
   if (act === "nskind") { nsKind = b.dataset.k; b.parentElement.querySelectorAll(".chip").forEach(c => { const on = c === b; c.setAttribute("aria-pressed", on); c.setAttribute("aria-checked", on); }); return; }
   if (act === "who") { S.who = b.dataset.who; render(); return; }
+  if (act === "newnote") { newNote(b.dataset.sec); return; }
+  if (act === "note") { openNote(b.dataset.nid); return; }
+  if (act === "note-close") { closeNote(); return; }
+  if (act === "note-del") { confirmClick(b, "?", () => { const id = noteId; const ph = ((S.items.get(id) || {}).imgs || []).map(p => p.id); noteId = ""; $("#nedit").hidden = true; document.body.style.overflow = ""; api.del("items", id); (async () => { for (const pid of ph) await imgStore(pid, null); })(); }); return; }
+  if (act === "zoom") { const pid = b.dataset.pid; const lb = $("#lb"); lb.querySelector("img").src = IMG[pid] || b.src; lb.hidden = false; imgGet(pid).then(d => { if (d && !lb.hidden) lb.querySelector("img").src = d; }); return; }
+  if (act === "rmph") { const pid = b.dataset.pid; confirmClick(b, "?", () => { const it = S.items.get(noteId); if (!it) return; api.update("items", noteId, { imgs: (it.imgs || []).filter(p => p.id !== pid) }); imgStore(pid, null); }); return; }
   if (act === "filt") { S.f = b.dataset.k; render(); return; }
   if (act === "tab") { S.tab[b.dataset.hub] = b.dataset.sec; S.f = "all"; S.who = "all"; render(); return; }
   if (act === "coladd") { colAdd = { sid: b.dataset.sec, s: +b.dataset.s }; render(); const i = document.querySelector(".cform input"); if (i) i.focus(); return; }
@@ -1004,15 +1182,18 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && colAdd) { colAdd = null; render(); return; }
+  if (e.key === "Escape" && !$("#lb").hidden) { $("#lb").hidden = true; return; }
+  if (e.key === "Escape" && noteId) { closeNote(); return; }
   if (e.key === "Escape") { if (!menu.hidden) closeMenu(); else if (!$("#ts").hidden) closeTask(); else if (!$("#sheet").hidden) closeSheet(); }
   if (e.key === "Enter" && e.target.dataset && e.target.dataset.add) { e.preventDefault(); addItem(e.target.dataset.add, e.target); }
-  if (e.key === "Enter" && e.target.tagName === "TEXTAREA" && !e.shiftKey) { e.preventDefault(); e.target.blur(); }
+  if (e.key === "Enter" && e.target.classList && e.target.classList.contains("ne-title")) { e.preventDefault(); $(".ne-text").focus(); return; }
+  if (e.key === "Enter" && e.target.tagName === "TEXTAREA" && !e.shiftKey && !e.target.closest("#nedit") && !e.target.closest("#ts")) { e.preventDefault(); e.target.blur(); }
 });
 document.addEventListener("submit", e => {
   if (e.target.id !== "newsec") return;
   e.preventDefault();
   const title = $("#ns-title").value.trim(); if (!title) { $("#ns-title").focus(); return; }
-  const hub = nsKind; const kind = hub === "fun" ? "ideas" : hub; const sid = newId("s");
+  const hub = nsKind; const kind = hub === "fun" ? "ideas" : hub === "ideas" ? "notes" : hub; const sid = newId("s");
   $("#ns-title").value = "";
   api.set("sections", sid, { title, kind, hub, ord: Date.now(), hint: "" });
   location.hash = href(sid);
@@ -1030,7 +1211,7 @@ if (!KEYM) {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) sync(); });
   addEventListener("hashchange", () => {
     if (!/k=/.test(location.hash)) { history.replaceState(null, "", href(route())); }
-    S.who = "all"; S.f = "all"; colAdd = null; closeSheet(); closeTask(); closeMenu(); render(); scrollTo(0, 0);
+    S.who = "all"; S.f = "all"; colAdd = null; nq = ""; if (noteId) closeNote(); closeSheet(); closeTask(); closeMenu(); render(); scrollTo(0, 0);
   });
 }
 const resizeAll = () => document.querySelectorAll("#screen textarea").forEach(autosize);
