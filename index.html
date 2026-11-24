@@ -345,6 +345,62 @@ body{position:relative}
 .sheet .row .btn{flex:1}
 .ghost{border:1px solid rgba(255,255,255,.1);background:none;border-radius:14px;padding:12px 18px;color:var(--muted)}
 .toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:#121212;border:1px solid var(--warm-line);color:var(--fg);padding:10px 16px;border-radius:999px;font-size:13.5px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+
+/* blurred, darkened photo behind inner screens */
+.ibg{position:fixed;inset:-60px;z-index:-2;background:#050505 50% 28%/cover no-repeat;filter:blur(30px) brightness(.34) saturate(1.15);transform:translateZ(0)}
+.is-home .ibg{display:none}
+.top{background:linear-gradient(rgba(5,5,5,.55),rgba(5,5,5,0))}
+
+/* glass on every plate */
+:root{--glass:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),rgba(22,22,22,.3);--gl-line:rgba(255,255,255,.12)}
+.card,.item,.col,.kc,.wbar.sm,.ht,.add input,.add button,.seg,.chip,.pill,.circ{-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2)}
+.card,.item,.kc,.wbar.sm{background:var(--glass);border:1px solid var(--gl-line);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 14px 34px -20px rgba(0,0,0,.7)}
+.glassw,.ht{background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03)),rgba(20,20,20,.34)}
+.ht.gold{background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03)),rgba(20,20,20,.34);color:var(--fg);border-color:rgba(232,199,102,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 28px -10px rgba(212,175,55,.55)}
+.ht.gold small{color:rgba(242,237,226,.68)}
+.ht.gold .icirc{background:linear-gradient(155deg,#E8C760,#B98F1C);color:#16110a}
+.ht.gold .arr{background:rgba(255,255,255,.1)}
+.col{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+.add input{background:rgba(255,255,255,.05);border-color:var(--gl-line)}
+.sheet{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),rgba(18,18,18,.78);-webkit-backdrop-filter:blur(26px) saturate(1.2);backdrop-filter:blur(26px) saturate(1.2);border-color:var(--gl-line)}
+.sheet-bg{background:rgba(0,0,0,.4)}
+.menu{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),rgba(18,18,18,.8);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
+.toast{background:rgba(18,18,18,.8);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+
+/* pro kanban */
+.board{align-items:start}
+.col{gap:8px;padding:10px 10px 8px}
+.col-h{padding:4px 6px 4px}
+.kc{display:block;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;padding:12px 14px}
+.kc:active{cursor:grabbing}
+.kc .kt{font-size:14.5px;font-weight:500;line-height:1.4}
+.kc .kn{margin-top:4px;font-size:12.5px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.kc .km{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.kc .km span{flex:none;display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:3px 9px 3px 7px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--fg)}
+.kc .km span svg.i{width:13px;height:13px}
+.kc .km .kw svg.i{color:var(--glow)}
+.kc .km .kw.none{color:var(--dim)}
+.kc .km .kd{color:var(--glow);background:rgba(201,162,39,.12)}
+.col[data-s="2"] .kt{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.25)}
+.kc.ph{opacity:.25;border-style:dashed}
+.kc.ghost{position:fixed;z-index:80;pointer-events:none;margin:0;transform:rotate(2.5deg) scale(1.03);box-shadow:0 24px 50px rgba(0,0,0,.6),0 0 0 1px rgba(232,199,102,.35);background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04)),rgba(28,28,28,.9)}
+.cnew{width:100%;display:flex;align-items:center;gap:8px;padding:10px 8px;border:0;border-radius:12px;background:none;color:var(--dim);font-size:13.5px;text-align:left}
+.cnew:hover{color:var(--fg);background:rgba(255,255,255,.04)}
+.cnew svg.i{width:16px;height:16px}
+.cform input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(232,199,102,.35);border-radius:12px;padding:11px 12px;outline:none}
+.cform div{display:flex;gap:8px;margin-top:8px}
+.cform .btn{padding:8px 14px;font-size:13.5px;border-radius:12px}
+.cform .ghost{padding:8px 12px;font-size:13.5px;border-radius:12px}
+.drag-on,.drag-on *{cursor:grabbing!important;-webkit-user-select:none!important;user-select:none!important}
+
+/* purchase link */
+.lnk{display:flex;align-items:center;gap:6px;margin-top:2px;min-width:0}
+.lnk svg.i{width:14px;height:14px;color:var(--dim);flex:none}
+.item .lnk input{flex:1;width:auto;font-size:12.5px;color:var(--glow);min-width:0;background:none;border:1px solid transparent;border-radius:8px;outline:none;padding:3px 6px;margin:-3px 0 -3px -6px}
+.item .lnk input:focus{border-color:var(--line-2);background:rgba(255,255,255,.03)}
+.item .lnk input::placeholder{color:var(--dim)}
+.lnk a{flex:none;display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--fg);text-decoration:none;padding:3px 10px;border-radius:999px;background:rgba(201,162,39,.16);border:1px solid rgba(232,199,102,.3)}
+.lnk a svg.i{width:12px;height:12px;color:var(--glow)}
 </style>
 </head>
 <body>
@@ -354,6 +410,7 @@ body{position:relative}
   <main id="screen"><div class="loading">Загружаем план вечера…</div></main>
 </div>
 
+<div class="ibg" id="ibg"></div>
 <nav class="nav" aria-label="Меню"><div class="in" id="nav"></div></nav>
 
 <div class="sheet-bg" id="sheet" hidden>
@@ -406,6 +463,9 @@ const ICON = {
   dice:'<rect x="4.5" y="4.5" width="15" height="15" rx="3.5"/><circle cx="9" cy="9" r=".9" fill="currentColor"/><circle cx="15" cy="15" r=".9" fill="currentColor"/><circle cx="12" cy="12" r=".9" fill="currentColor"/>',
   gift:'<rect x="4" y="9" width="16" height="11" rx="2"/><path d="M3.5 9h17M12 9v11M12 9c-1.5-3-5-3.5-5-1.2S10 9 12 9zM12 9c1.5-3 5-3.5 5-1.2S14 9 12 9z"/>',
   arr:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  chain:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  out:'<path d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4"/>',
+  user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1-3.6 3.8-5.5 7-5.5s6 1.9 7 5.5"/>',
   grid:'<rect x="4.5" y="4.5" width="6" height="6" rx="1.8"/><rect x="13.5" y="4.5" width="6" height="6" rx="1.8"/><rect x="4.5" y="13.5" width="6" height="6" rx="1.8"/><rect x="13.5" y="13.5" width="6" height="6" rx="1.8"/>',
   list:'<path d="M9 7h11M9 12h11M9 17h11"/><circle cx="5" cy="7" r=".9" fill="currentColor"/><circle cx="5" cy="12" r=".9" fill="currentColor"/><circle cx="5" cy="17" r=".9" fill="currentColor"/>',
 };
@@ -488,7 +548,7 @@ let photo = "";
 async function loadPhoto() {
   const PK = "katya-photo-" + KEYM;
   let du = ""; try { du = localStorage.getItem(PK) || ""; } catch (e) {}
-  const show = async d => { try { photo = URL.createObjectURL(await (await fetch(d)).blob()); render(); } catch (e) {} };
+  const show = async d => { try { photo = URL.createObjectURL(await (await fetch(d)).blob()); $("#ibg").style.backgroundImage = `url(${photo})`; render(); } catch (e) {} };
   if (du) show(du);
   try {
     const r = await rpc("el_get", { k: KEYM + "ph" });
@@ -533,7 +593,7 @@ function curSec(h) { const list = hubSecs(h); const t = S.tab[h]; return list.so
 
 function renderTop(home) {
   const left = home
-    ? `<span class="circ av">${photo ? `<img src="${photo}" alt="">` : "К"}</span>`
+    ? `<span></span>`
     : `<a class="circ" href="${href(route().startsWith("who:") ? "team" : "")}" aria-label="Назад">${ic("back")}</a>`;
   $("#top").innerHTML = `${left}<a class="bpill" href="${href("")}"><i>${ic("gift")}</i><span><b>Катя</b><small>${esc(meta("date"))}</small></span></a>
     <a class="circ" href="${href("team")}" aria-label="Команда и настройки">${ic("grid")}</a>`;
@@ -546,16 +606,81 @@ function renderNav(r) {
     + tab("team", "team", "people", "Команда");
 }
 const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
-function board(sid, w) {
-  const rows = secItems(sid).filter(([, it]) => matchWho(it, w || "all"));
-  return `<div class="board">${TSTATUS.map((t, s) => {
+let colAdd = null;
+function board(sid) {
+  const rows = secItems(sid);
+  return `<div class="board" data-sec="${esc(sid)}">${TSTATUS.map((t, s) => {
     const cards = rows.filter(([, it]) => Math.min(it.st | 0, 2) === s);
-    return `<div class="col" data-s="${s}"><div class="col-h"><b><i></i>${t[0].toUpperCase() + t.slice(1)}<span>${cards.length}</span></b>
-        <button class="cadd" data-act="coladd" data-s="${s}" data-sec="${esc(sid)}" aria-label="Добавить в «${t}»">${ic("plus")}</button></div>
-      ${cards.map(([id, it]) => `<button class="kc" draggable="true" data-act="task" data-tid="${esc(id)}"><span>${esc(it.text) || "Без названия"}${it.due ? `<small>${esc(it.due)}</small>` : ""}</span>${it.who ? `<em title="${esc(it.who)}">${esc(it.who === "Все" ? "В" : it.who.slice(0, 1).toUpperCase())}</em>` : ""}</button>`).join("")
-        || `<div class="empty">Пусто</div>`}</div>`;
+    const adding = colAdd && colAdd.sid === sid && colAdd.s === s;
+    return `<div class="col" data-s="${s}"><div class="col-h"><b><i></i>${t[0].toUpperCase() + t.slice(1)}<span>${cards.length}</span></b></div>
+      ${cards.map(([id, it]) => `<div class="kc" role="button" tabindex="0" data-act="task" data-tid="${esc(id)}">
+        <div class="kt">${esc(it.text) || "Без названия"}</div>${it.note ? `<div class="kn">${esc(it.note)}</div>` : ""}
+        <div class="km">${it.who ? `<span class="kw">${ic("user")}${esc(it.who)}</span>` : `<span class="kw none">${ic("user")}нет ответственного</span>`}${it.due ? `<span class="kd">${ic("cal")}${esc(it.due)}</span>` : ""}</div></div>`).join("")}
+      ${adding ? `<div class="cform"><input type="text" data-add="${esc(sid)}" data-st="${s}" placeholder="Что нужно сделать?" aria-label="Новая задача" autocomplete="off">
+          <div><button class="btn" data-act="coladd-ok">Добавить</button><button class="ghost" data-act="coladd-x">Отмена</button></div></div>`
+        : `<button class="cnew" data-act="coladd" data-s="${s}" data-sec="${esc(sid)}">${ic("plus")}Добавить задачу</button>`}</div>`;
   }).join("")}</div>`;
 }
+
+/* drag cards: mouse moves at once, finger after a short hold */
+let drag = null, eatClick = false, pendingRender = false;
+function dragStart() {
+  const d = drag; d.on = true; const r = d.el.getBoundingClientRect();
+  d.dx = d.x - r.left; d.dy = d.y - r.top;
+  d.g = d.el.cloneNode(true); d.g.classList.add("ghost"); d.g.style.width = r.width + "px"; document.body.appendChild(d.g);
+  d.el.classList.add("ph"); document.body.classList.add("drag-on"); closeMenu();
+  if (navigator.vibrate) navigator.vibrate(12);
+  dragMove(); d.raf = requestAnimationFrame(autoScroll);
+}
+function dragMove() {
+  const d = drag; d.g.style.left = (d.x - d.dx) + "px"; d.g.style.top = (d.y - d.dy) + "px";
+  const under = document.elementFromPoint(d.x, d.y); const col = under && under.closest(".col");
+  document.querySelectorAll(".col.over").forEach(c => c !== col && c.classList.remove("over"));
+  if (!col) return; col.classList.add("over");
+  const cards = [...col.querySelectorAll(".kc:not(.ph)")];
+  const before = cards.find(c => { const r = c.getBoundingClientRect(); return d.y < r.top + r.height / 2; });
+  const anchor = before || col.querySelector(".cnew,.cform");
+  if (anchor) col.insertBefore(d.el, anchor); else col.appendChild(d.el);
+}
+function autoScroll() {
+  const d = drag; if (!d || !d.on) return;
+  const bd = d.el.closest(".board");
+  if (bd) { if (d.x < 36) bd.scrollLeft -= 10; else if (d.x > innerWidth - 36) bd.scrollLeft += 10; }
+  if (d.y < 90) scrollBy(0, -10); else if (d.y > innerHeight - 110) scrollBy(0, 10);
+  d.raf = requestAnimationFrame(autoScroll);
+}
+function dragEnd(commit) {
+  const d = drag; drag = null; if (!d) return;
+  clearTimeout(d.t); if (!d.on) return;
+  cancelAnimationFrame(d.raf); d.g.remove(); document.body.classList.remove("drag-on");
+  document.querySelectorAll(".col.over").forEach(c => c.classList.remove("over"));
+  eatClick = true; setTimeout(() => eatClick = false, 50);
+  const col = d.el.closest(".col"); const it = S.items.get(d.id);
+  if (commit && col && it) {
+    const ordOf = el => el && el.classList && el.classList.contains("kc") ? ((S.items.get(el.dataset.tid) || {}).ord || 0) : null;
+    const prev = ordOf(d.el.previousElementSibling), next = ordOf(d.el.nextElementSibling);
+    const ord = prev != null && next != null ? (prev + next) / 2 : prev != null ? prev + 1000 : next != null ? next - 1000 : Date.now();
+    api.update("items", d.id, { st: +col.dataset.s, ord });
+  } else render();
+  if (pendingRender) { pendingRender = false; render(); }
+}
+document.addEventListener("pointerdown", e => {
+  const c = e.target.closest && e.target.closest(".kc"); if (!c || c.classList.contains("ghost") || e.button > 0) return;
+  drag = { el: c, id: c.dataset.tid, x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, on: false, touch: e.pointerType !== "mouse" };
+  if (drag.touch) drag.t = setTimeout(() => { if (drag && !drag.on) dragStart(); }, 260);
+});
+document.addEventListener("pointermove", e => {
+  const d = drag; if (!d) return; d.x = e.clientX; d.y = e.clientY;
+  const dist = Math.hypot(d.x - d.x0, d.y - d.y0);
+  if (!d.on) { if (d.touch) { if (dist > 8) { clearTimeout(d.t); drag = null; } return; } if (dist > 5) dragStart(); else return; }
+  e.preventDefault(); dragMove();
+});
+document.addEventListener("touchmove", e => { if (drag && drag.on) e.preventDefault(); }, { passive: false });
+document.addEventListener("pointerup", () => dragEnd(true));
+document.addEventListener("pointercancel", () => dragEnd(false));
+document.addEventListener("contextmenu", e => { if (e.target.closest && e.target.closest(".kc")) e.preventDefault(); });
+document.addEventListener("click", e => { if (eatClick) { e.stopPropagation(); e.preventDefault(); eatClick = false; } }, true);
+document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.classList && e.target.classList.contains("kc")) openTask(e.target.dataset.tid); });
 function hubCount(h) {
   const items = [...S.items.values()].filter(it => { const s = S.sections.get(it.sec); return s && hubOf(s) === h; });
   if (h === "tasks") { const n = items.filter(i => (i.st | 0) < 2).length; return [n, plural(n, "задача", "задачи", "задач")]; }
@@ -599,10 +724,12 @@ function stPill(kind, it) {
 function itemRow(kind, id, it) {
   const v = f => esc(val("items", id, f, it[f]));
   const x = `<button class="x" data-act="del" aria-label="Удалить">×</button>`;
-  const main = (ph, nph) => `<div class="main"><textarea rows="1" class="t" data-f="text" placeholder="${ph}">${v("text")}</textarea><textarea rows="1" class="n" data-f="note" placeholder="${nph}">${v("note")}</textarea></div>`;
+  const link = () => { const u = String(it.link || "").trim(); const ok = /^https?:\/\/\S+$/i.test(u);
+    return `<div class="lnk">${ic("chain")}<input type="url" inputmode="url" data-f="link" value="${v("link")}" placeholder="ссылка на товар" aria-label="Ссылка на товар" autocomplete="off">${ok ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${ic("out")}открыть</a>` : ""}</div>`; };
+  const main = (ph, nph, extra) => `<div class="main"><textarea rows="1" class="t" data-f="text" placeholder="${ph}">${v("text")}</textarea><textarea rows="1" class="n" data-f="note" placeholder="${nph}">${v("note")}</textarea>${extra || ""}</div>`;
   if (kind === "shop") return `<div class="item shop ${it.done ? "done" : ""}" data-col="items" data-id="${id}">
       <button class="chk" data-act="done" role="checkbox" aria-checked="${!!it.done}" aria-label="Куплено"></button>
-      ${main("Что купить", "где, какой, ссылка")}
+      ${main("Что купить", "какой именно: цвет, размер, где", link())}
       <label class="q"><input type="number" inputmode="decimal" data-f="qty" value="${v("qty")}" placeholder="1" aria-label="Количество"><span>шт</span></label>
       <label class="p"><input type="number" inputmode="decimal" data-f="price" value="${v("price")}" placeholder="цена" aria-label="Цена за штуку"><span>${esc(meta("currency"))}</span></label>
       <div class="ctl">${whoPill(it)}</div>${x}</div>`;
@@ -640,13 +767,12 @@ function hubScreen(h) {
     top = `<div class="wbar glassw sm"><b>${fmt(sum)}</b><span>${esc(cur)}<br>бюджет</span><i class="icirc">${ic("wallet")}</i></div>`;
   }
   let filt = "";
-  if (s.kind === "tasks") filt = `<div class="chips">${["all", ...team(), "none"].map(p => `<button class="chip" data-act="who" data-who="${esc(p)}" aria-pressed="${S.who === p}">${p === "all" ? "Все" : p === "none" ? "Ничьё" : esc(p)}</button>`).join("")}</div>`;
-  else if (FILTERS[s.kind]) filt = `<div class="chips">${FILTERS[s.kind].map(([k, l]) => `<button class="chip" data-act="filt" data-k="${k}" aria-pressed="${S.f === k}">${l}</button>`).join("")}</div>`;
+  if (FILTERS[s.kind]) filt = `<div class="chips">${FILTERS[s.kind].map(([k, l]) => `<button class="chip" data-act="filt" data-k="${k}" aria-pressed="${S.f === k}">${l}</button>`).join("")}</div>`;
   const shown = sortRows(s.kind, all.filter(([, it]) => passF(s.kind, it)));
-  const body = s.kind === "tasks" ? `<div style="margin-top:12px">${board(sid, S.who)}</div>`
+  const body = s.kind === "tasks" ? `<div style="margin-top:8px">${board(sid)}</div>`
     : `<div class="items">${shown.map(([id, it]) => itemRow(s.kind, id, it)).join("") || `<div class="empty">${all.length ? "Здесь ничего не подходит под фильтр" : "Пока пусто, добавь первый пункт"}</div>`}</div>`;
   return `<section data-col="sections" data-id="${esc(sid)}">${head}${top}${tabs}${filt}${body}
-      <div class="add"><input type="text" data-add="${esc(sid)}" placeholder="${s.kind === "shop" ? "Добавить покупку" : s.kind === "plan" ? "Добавить шаг вечера" : s.kind === "tasks" ? "Добавить задачу" : "Добавить идею"}" aria-label="Новый пункт"><button data-act="add" aria-label="Добавить">${ic("plus")}</button></div>
+      ${s.kind === "tasks" ? "" : `<div class="add"><input type="text" data-add="${esc(sid)}" placeholder="${s.kind === "shop" ? "Добавить покупку" : s.kind === "plan" ? "Добавить шаг вечера" : s.kind === "tasks" ? "Добавить задачу" : "Добавить идею"}" aria-label="Новый пункт"><button data-act="add" aria-label="Добавить">${ic("plus")}</button></div>`}
     </section>`;
 }
 function personScreen(w) {
@@ -683,6 +809,7 @@ function teamScreen() {
 
 function render() {
   if (!api) return;
+  if (drag && drag.on) { pendingRender = true; return; }
   const a = document.activeElement; let keep = null;
   if (a && a.dataset && a.dataset.f && a.closest("#screen")) {
     const host = a.closest("[data-id]");
@@ -758,7 +885,7 @@ function addTo(sid, text, st) {
 }
 function addItem(sid, input) {
   const text = input.value.trim(); if (!text) { input.focus(); return; }
-  input.value = ""; addTo(sid, text);
+  input.value = ""; addTo(sid, text, +(input.dataset.st || 0));
 }
 const armed = new WeakSet();
 function confirmClick(btn, lbl, fn) {
@@ -801,7 +928,7 @@ function openTask(id) {
   const it = S.items.get(id); if (!it) return; tsId = id;
   $("#ts-in").innerHTML = `<div data-col="items" data-id="${esc(id)}"><div class="grab"></div>
     <textarea rows="1" class="t" data-f="text" aria-label="Задача" placeholder="Задача">${esc(it.text)}</textarea>
-    <textarea rows="1" class="n" data-f="note" aria-label="Детали" placeholder="Детали">${esc(it.note)}</textarea>
+    <textarea rows="3" class="n" data-f="note" aria-label="Описание" placeholder="Описание: что именно сделать, детали, контакты">${esc(it.note)}</textarea>
     <input type="text" data-f="due" value="${esc(it.due || "")}" placeholder="Срок, например до 20.12" aria-label="Срок" autocomplete="off">
     <div id="ts-ctl"></div>
     <div class="row"><button type="button" class="ghost" data-act="ts-del">Удалить</button><button type="button" class="btn" data-act="ts-close">Готово</button></div></div>`;
@@ -813,21 +940,11 @@ function drawTaskCtl() {
   const s = Math.min(it.st | 0, 2), w = it.who || "";
   $("#ts-ctl").innerHTML = `<p class="lbl">Статус</p><div class="chips" style="flex-wrap:wrap">${TSTATUS.map((l, i) =>
       `<button type="button" class="chip" data-act="set" data-f="st" data-v="${i}" aria-pressed="${i === s}">${l}</button>`).join("")}</div>
-    <p class="lbl">Кто делает</p><div class="chips" style="flex-wrap:wrap">${[...team(), "Все", ""].map(p =>
-      `<button type="button" class="chip" data-act="set" data-f="who" data-v="${esc(p)}" aria-pressed="${p === w}">${p ? esc(p) : "Никто"}</button>`).join("")}</div>`;
+    <p class="lbl">Ответственный</p><div class="chips" style="flex-wrap:wrap">${[...team(), "Все", ""].map(p =>
+      `<button type="button" class="chip" data-act="set" data-f="who" data-v="${esc(p)}" aria-pressed="${p === w}">${p ? esc(p) : "Нет"}</button>`).join("")}</div>`;
 }
 function closeTask() { const a = document.activeElement; if (a && a.closest && a.closest("#ts")) a.blur(); $("#ts").hidden = true; tsId = ""; }
 $("#ts").addEventListener("click", e => { if (e.target.id === "ts") closeTask(); });
-
-/* drag cards between columns (mouse) */
-document.addEventListener("dragstart", e => { const c = e.target.closest && e.target.closest(".kc"); if (!c) return; e.dataTransfer.setData("text/plain", c.dataset.tid); c.classList.add("drag"); });
-document.addEventListener("dragend", e => { document.querySelectorAll(".kc.drag,.col.over").forEach(x => x.classList.remove("drag", "over")); });
-document.addEventListener("dragover", e => { const col = e.target.closest && e.target.closest(".col"); if (!col) return; e.preventDefault(); document.querySelectorAll(".col.over").forEach(x => x !== col && x.classList.remove("over")); col.classList.add("over"); });
-document.addEventListener("drop", e => {
-  const col = e.target.closest && e.target.closest(".col"); if (!col) return; e.preventDefault();
-  const id = e.dataTransfer.getData("text/plain"); const it = S.items.get(id);
-  if (it && Math.min(it.st | 0, 2) !== +col.dataset.s) api.update("items", id, { st: +col.dataset.s });
-});
 
 /* ---------- quick add sheet ---------- */
 let qaSec = "", qaSt = 0;
@@ -867,7 +984,9 @@ document.addEventListener("click", e => {
   if (act === "who") { S.who = b.dataset.who; render(); return; }
   if (act === "filt") { S.f = b.dataset.k; render(); return; }
   if (act === "tab") { S.tab[b.dataset.hub] = b.dataset.sec; S.f = "all"; S.who = "all"; render(); return; }
-  if (act === "coladd") { openSheet(b.dataset.sec, +b.dataset.s); return; }
+  if (act === "coladd") { colAdd = { sid: b.dataset.sec, s: +b.dataset.s }; render(); const i = document.querySelector(".cform input"); if (i) i.focus(); return; }
+  if (act === "coladd-ok") { const i = b.closest(".cform").querySelector("input"); addItem(i.dataset.add, i); setTimeout(() => { const j = document.querySelector(".cform input"); if (j) j.focus(); }, 0); return; }
+  if (act === "coladd-x") { colAdd = null; render(); return; }
   if (act === "sheet") { openSheet(b.dataset.sec); return; }
   if (act === "sheet-close") { closeSheet(); return; }
   if (act === "qa-sec") { qaSec = b.dataset.sec; drawSheet(); $("#qa-text").focus(); return; }
@@ -884,6 +1003,7 @@ document.addEventListener("click", e => {
   }
 });
 document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && colAdd) { colAdd = null; render(); return; }
   if (e.key === "Escape") { if (!menu.hidden) closeMenu(); else if (!$("#ts").hidden) closeTask(); else if (!$("#sheet").hidden) closeSheet(); }
   if (e.key === "Enter" && e.target.dataset && e.target.dataset.add) { e.preventDefault(); addItem(e.target.dataset.add, e.target); }
   if (e.key === "Enter" && e.target.tagName === "TEXTAREA" && !e.shiftKey) { e.preventDefault(); e.target.blur(); }
@@ -910,7 +1030,7 @@ if (!KEYM) {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) sync(); });
   addEventListener("hashchange", () => {
     if (!/k=/.test(location.hash)) { history.replaceState(null, "", href(route())); }
-    S.who = "all"; S.f = "all"; closeSheet(); closeTask(); closeMenu(); render(); scrollTo(0, 0);
+    S.who = "all"; S.f = "all"; colAdd = null; closeSheet(); closeTask(); closeMenu(); render(); scrollTo(0, 0);
   });
 }
 const resizeAll = () => document.querySelectorAll("#screen textarea").forEach(autosize);
