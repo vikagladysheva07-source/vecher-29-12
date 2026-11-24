@@ -804,7 +804,7 @@ function homeScreen() {
     </section>`;
 }
 function peopleRow() {
-  const items = [...S.items.values()];
+  const items = [...S.items.values()].filter(it => { const k = (S.sections.get(it.sec) || {}).kind; return k === "tasks" || k === "shop" || k === "ideas"; });
   return `<div class="prow">${[...team(), "none"].map(w => {
     const mine = items.filter(it => w === "none" ? !it.who : it.who === w || it.who === "Все");
     const open = mine.filter(it => isOpen(S.sections.get(it.sec)?.kind, it)).length;
